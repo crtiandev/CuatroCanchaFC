@@ -1,474 +1,784 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CuatroCancha Fc</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap"
-        rel="stylesheet">
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
     <script src="script.js" defer></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- header -->
     <!--Traje una navbar de bootstrap,-->
     <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="#inicio">
-                    <img class="logo" src="imgs/logo.png" alt="CuatroCancha FC">
-                </a>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Catalogo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Preguntas frecuentes</a>
-                        </li>
-                    </ul>
-                </div>
-                <a href="#" class="carrito ms-auto me-3">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </a>
-            </div>
-        </nav>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand" href="#inicio">
+            <img class="logo" src="imgs/logo.png" alt="CuatroCancha FC" />
+          </a>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Catalogo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#"
+                  >Preguntas frecuentes</a
+                >
+              </li>
+            </ul>
+          </div>
+          <a
+            href="#"
+            class="carrito ms-auto me-3 position-relative"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#carritoPanel"
+            aria-controls="carritoPanel"
+            aria-label="Abrir carrito"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="carrito-contador" class="carrito__contador">0</span>
+          </a>
+        </div>
+      </nav>
     </header>
 
     <main>
-
-        <!-- banner -->
-        <section id="inicio" class="position-relative">
-            <div id="bannerCarousel" class="carousel slide carousel-fade banner-carousel" data-bs-ride="carousel"
-                data-bs-interval="3500">
-                <div class="carousel-inner h-100">
-                    <div class="carousel-item active">
-                        <img src="imgs/balonharry.jpg" class="d-block w-100" alt="balon de oro harry kane">
-                        <div
-                            class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 ">
-                            <span class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase">Nueva
-                                Temporada</span>
-                            <h1 class="display-3 banner-title">La gloria se compra <span>en la cancha.</span></h1>
-                            <p class="lead banner-text mb-4">Camisetas, guayos y accesorios inspirados en los mejores
-                                del mundo.</p>
-                            <a href="" class="btn btn-neon-action">Comprar ahora</a>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <img src="imgs/golty.png" class="d-block w-100" alt="coleccion golty">
-                        <div
-                            class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                            <span class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase">Colección
-                                Golty</span>
-                            <h1 class="display-3 banner-title">Equipamiento Profesional <span>Independiente</span></h1>
-                            <p class="lead banner-text mb-4">Encuentra balones oficiales, maletas y guayos diseñados
-                                para el máximo rendimiento.</p>
-                            <a href="" class="btn btn-neon-action">Explorar Catálogo</a>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <img src="imgs/camisasfut.png" class="d-block w-100" alt="Camisetas Oficiales">
-                        <div
-                            class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                            <span class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase">Edición
-                                Leyendas</span>
-                            <h1 class="display-3 banner-title">Viste como <span>un campeón</span></h1>
-                            <p class="lead banner-text mb-4">Lleva la indumentaria oficial de las grandes selecciones y
-                                haz historia en cada partido.</p>
-                            <a href="" class="btn btn-neon-action">Ver Ofertas</a>
-                        </div>
-                    </div>
-                </div>
+      <!-- banner -->
+      <section id="inicio" class="position-relative">
+        <div
+          id="bannerCarousel"
+          class="carousel slide carousel-fade banner-carousel"
+          data-bs-ride="carousel"
+          data-bs-interval="3500"
+        >
+          <div class="carousel-inner h-100">
+            <div class="carousel-item active">
+              <img
+                src="imgs/balonharry.jpg"
+                class="d-block w-100"
+                alt="balon de oro harry kane"
+              />
+              <div
+                class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
+              >
+                <span
+                  class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase"
+                  >Nueva Temporada</span
+                >
+                <h1 class="display-3 banner-title">
+                  La gloria se compra <span>en la cancha.</span>
+                </h1>
+                <p class="lead banner-text mb-4">
+                  Camisetas, guayos y accesorios inspirados en los mejores del
+                  mundo.
+                </p>
+                <a href="" class="btn btn-neon-action">Comprar ahora</a>
+              </div>
             </div>
-        </section>
 
-        <!-- catalogo -->
-        <section id="catalogo" class="catalogo" aria-labelledby="catalogo-titulo">
-            <div class="container">
-
-                <div class="catalogo__encabezado">
-                    <h2 id="catalogo-titulo" class="catalogo__titulo">Catálogo</h2>
-                    <p class="catalogo__subtitulo">Camisetas, guayos y accesorios para cada partido.</p>
-                </div>
-
-                <div class="catalogo__controles">
-                    <div class="catalogo__busqueda">
-                        <label for="catalogo-buscar" class="visually-hidden">Buscar producto</label>
-                        <i class="bi bi-search" aria-hidden="true"></i>
-                        <input type="search" id="catalogo-buscar" class="catalogo__input" placeholder="Buscar producto" autocomplete="off">
-                    </div>
-
-                    <div class="catalogo__filtros" role="group" aria-label="Filtrar por categoría">
-                        <button type="button" class="filtro is-active" data-categoria="todos" aria-pressed="true">Todos</button>
-                        <button type="button" class="filtro" data-categoria="camisetas" aria-pressed="false">Camisetas</button>
-                        <button type="button" class="filtro" data-categoria="guayos" aria-pressed="false">Guayos</button>
-                        <button type="button" class="filtro" data-categoria="accesorios" aria-pressed="false">Accesorios</button>
-                    </div>
-
-                    <div class="catalogo__orden">
-                        <label for="catalogo-orden">Ordenar por</label>
-                        <select id="catalogo-orden" class="catalogo__select">
-                            <option value="relevancia">Destacados</option>
-                            <option value="precio-asc">Precio: menor a mayor</option>
-                            <option value="precio-desc">Precio: mayor a menor</option>
-                            <option value="nombre">Nombre (A–Z)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <p id="catalogo-resultados" class="catalogo__resultados" aria-live="polite"></p>
-
-                <div id="catalogo-grid" class="row g-4">
-                    <!-- Producto 1 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="1" data-categoria="camisetas" data-nombre="Camiseta local 2026" data-precio="189900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/clocal..jpg" alt="Camiseta local 2026" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Camisetas</p>
-                            <h3 class="producto__nombre">Camiseta local 2026</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 189.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 2 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="2" data-categoria="camisetas" data-nombre="Camiseta visitante 2026" data-precio="189900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/camiseta-visitante-2026.jpg" alt="Camiseta visitante 2026" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Camisetas</p>
-                            <h3 class="producto__nombre">Camiseta visitante 2026</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 189.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 3 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="3" data-categoria="camisetas" data-nombre="Camiseta retro 1998" data-precio="159900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/camiseta-retro-1998.jpg" alt="Camiseta retro 1998" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Camisetas</p>
-                            <h3 class="producto__nombre">Camiseta retro 1998</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 159.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 4 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="4" data-categoria="camisetas" data-nombre="Camiseta de arquero" data-precio="174900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/camiseta-arquero.jpg" alt="Camiseta de arquero" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Camisetas</p>
-                            <h3 class="producto__nombre">Camiseta de arquero</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 174.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 5 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="5" data-categoria="guayos" data-nombre="Guayos Velocidad Pro" data-precio="399900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/guayos-velocidad-pro.jpg" alt="Guayos Velocidad Pro" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Guayos</p>
-                            <h3 class="producto__nombre">Guayos Velocidad Pro</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 399.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 6 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="6" data-categoria="guayos" data-nombre="Guayos Control Elite" data-precio="429900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/guayos-control-elite.jpg" alt="Guayos Control Elite" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Guayos</p>
-                            <h3 class="producto__nombre">Guayos Control Elite</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 429.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 7 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="7" data-categoria="guayos" data-nombre="Guayos Césped Sintético" data-precio="259900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/guayos-cesped-sintetico.jpg" alt="Guayos Césped Sintético" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Guayos</p>
-                            <h3 class="producto__nombre">Guayos Césped Sintético</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 259.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 8 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="8" data-categoria="guayos" data-nombre="Guayos Sala Indoor" data-precio="219900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/guayos-sala-indoor.jpg" alt="Guayos Sala Indoor" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Guayos</p>
-                            <h3 class="producto__nombre">Guayos Sala Indoor</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 219.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 9 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="9" data-categoria="accesorios" data-nombre="Balón oficial de partido" data-precio="149900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/balon-oficial.jpg" alt="Balón oficial de partido" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Accesorios</p>
-                            <h3 class="producto__nombre">Balón oficial de partido</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 149.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 10 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="10" data-categoria="accesorios" data-nombre="Guantes de arquero" data-precio="89900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/guantes-arquero.jpg" alt="Guantes de arquero" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Accesorios</p>
-                            <h3 class="producto__nombre">Guantes de arquero</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 89.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 11 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="11" data-categoria="accesorios" data-nombre="Espinilleras ligeras" data-precio="49900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/espinilleras.jpg" alt="Espinilleras ligeras" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Accesorios</p>
-                            <h3 class="producto__nombre">Espinilleras ligeras</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 49.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 12 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="12" data-categoria="accesorios" data-nombre="Morral deportivo" data-precio="119900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="img/morral-deportivo.jpg" alt="Morral deportivo" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Accesorios</p>
-                            <h3 class="producto__nombre">Morral deportivo</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 119.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-                </div>
-
-                <div id="catalogo-vacio" class="catalogo__vacio" hidden>
-                    <p>No encontramos productos con esos filtros.</p>
-                    <button type="button" class="btn-catalogo btn-catalogo--borde" id="catalogo-limpiar">Quitar filtros</button>
-                </div>
-
+            <div class="carousel-item">
+              <img
+                src="imgs/golty.png"
+                class="d-block w-100"
+                alt="coleccion golty"
+              />
+              <div
+                class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
+              >
+                <span
+                  class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase"
+                  >Colección Golty</span
+                >
+                <h1 class="display-3 banner-title">
+                  Equipamiento Profesional <span>Independiente</span>
+                </h1>
+                <p class="lead banner-text mb-4">
+                  Encuentra balones oficiales, maletas y guayos diseñados para
+                  el máximo rendimiento.
+                </p>
+                <a href="" class="btn btn-neon-action">Explorar Catálogo</a>
+              </div>
             </div>
-        </section>
 
-        <!-- mas vendidos -->
-        <section>
+            <div class="carousel-item">
+              <img
+                src="imgs/camisasfut.png"
+                class="d-block w-100"
+                alt="Camisetas Oficiales"
+              />
+              <div
+                class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100"
+              >
+                <span
+                  class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase"
+                  >Edición Leyendas</span
+                >
+                <h1 class="display-3 banner-title">
+                  Viste como <span>un campeón</span>
+                </h1>
+                <p class="lead banner-text mb-4">
+                  Lleva la indumentaria oficial de las grandes selecciones y haz
+                  historia en cada partido.
+                </p>
+                <a href="" class="btn btn-neon-action">Ver Ofertas</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        </section>
+      <!-- catalogo -->
+      <section id="catalogo" class="catalogo" aria-labelledby="catalogo-titulo">
+        <div class="container">
+          <div class="catalogo__encabezado">
+            <h2 id="catalogo-titulo" class="catalogo__titulo">Catálogo</h2>
+            <p class="catalogo__subtitulo">
+              Camisetas, guayos y accesorios para cada partido.
+            </p>
+          </div>
 
-        <!-- preguntas frecuentes (sobre nosotros) -->
-        <section>
+          <div class="catalogo__controles">
+            <div class="catalogo__busqueda">
+              <label for="catalogo-buscar" class="visually-hidden"
+                >Buscar producto</label
+              >
+              <i class="bi bi-search" aria-hidden="true"></i>
+              <input
+                type="search"
+                id="catalogo-buscar"
+                class="catalogo__input"
+                placeholder="Buscar producto"
+                autocomplete="off"
+              />
+            </div>
 
-<section id="faq" class="seccion-faq py-5" aria-labelledby="titulo-faq">
-    <div class="container">
+            <div
+              class="catalogo__filtros"
+              role="group"
+              aria-label="Filtrar por categoría"
+            >
+              <button
+                type="button"
+                class="filtro is-active"
+                data-categoria="todos"
+                aria-pressed="true"
+              >
+                Todos
+              </button>
+              <button
+                type="button"
+                class="filtro"
+                data-categoria="camisetas"
+                aria-pressed="false"
+              >
+                Camisetas
+              </button>
+              <button
+                type="button"
+                class="filtro"
+                data-categoria="guayos"
+                aria-pressed="false"
+              >
+                Guayos
+              </button>
+              <button
+                type="button"
+                class="filtro"
+                data-categoria="accesorios"
+                aria-pressed="false"
+              >
+                Accesorios
+              </button>
+            </div>
 
-        <h2 id="titulo-faq" class="titulo-seccion">Preguntas frecuentes</h2>
-        <p class="texto-intro mt-3 mb-5">Resolvemos tus dudas antes de comprar.</p>
+            <div class="catalogo__orden">
+              <label for="catalogo-orden">Ordenar por</label>
+              <select id="catalogo-orden" class="catalogo__select">
+                <option value="relevancia">Destacados</option>
+                <option value="precio-asc">Precio: menor a mayor</option>
+                <option value="precio-desc">Precio: mayor a menor</option>
+                <option value="nombre">Nombre (A–Z)</option>
+              </select>
+            </div>
+          </div>
 
-        <div class="acordeon-faq">
+          <p
+            id="catalogo-resultados"
+            class="catalogo__resultados"
+            aria-live="polite"
+          ></p>
 
-            <details class="pregunta-faq" open>
+          <div id="catalogo-grid" class="row g-4">
+            <!-- Producto 1 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="1"
+              data-categoria="camisetas"
+              data-nombre="Camiseta local 2026"
+              data-precio="189900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="imgs/clocal..jpg"
+                    alt="Camiseta local 2026"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Camisetas</p>
+                <h3 class="producto__nombre">Camiseta local 2026</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 189.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 2 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="2"
+              data-categoria="camisetas"
+              data-nombre="Camiseta visitante 2026"
+              data-precio="189900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/camiseta-visitante-2026.jpg"
+                    alt="Camiseta visitante 2026"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Camisetas</p>
+                <h3 class="producto__nombre">Camiseta visitante 2026</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 189.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 3 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="3"
+              data-categoria="camisetas"
+              data-nombre="Camiseta retro 1998"
+              data-precio="159900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/camiseta-retro-1998.jpg"
+                    alt="Camiseta retro 1998"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Camisetas</p>
+                <h3 class="producto__nombre">Camiseta retro 1998</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 159.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 4 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="4"
+              data-categoria="camisetas"
+              data-nombre="Camiseta de arquero"
+              data-precio="174900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/camiseta-arquero.jpg"
+                    alt="Camiseta de arquero"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Camisetas</p>
+                <h3 class="producto__nombre">Camiseta de arquero</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 174.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 5 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="5"
+              data-categoria="guayos"
+              data-nombre="Guayos Velocidad Pro"
+              data-precio="399900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/guayos-velocidad-pro.jpg"
+                    alt="Guayos Velocidad Pro"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Guayos</p>
+                <h3 class="producto__nombre">Guayos Velocidad Pro</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 399.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 6 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="6"
+              data-categoria="guayos"
+              data-nombre="Guayos Control Elite"
+              data-precio="429900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/guayos-control-elite.jpg"
+                    alt="Guayos Control Elite"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Guayos</p>
+                <h3 class="producto__nombre">Guayos Control Elite</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 429.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 7 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="7"
+              data-categoria="guayos"
+              data-nombre="Guayos Césped Sintético"
+              data-precio="259900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/guayos-cesped-sintetico.jpg"
+                    alt="Guayos Césped Sintético"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Guayos</p>
+                <h3 class="producto__nombre">Guayos Césped Sintético</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 259.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 8 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="8"
+              data-categoria="guayos"
+              data-nombre="Guayos Sala Indoor"
+              data-precio="219900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/guayos-sala-indoor.jpg"
+                    alt="Guayos Sala Indoor"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Guayos</p>
+                <h3 class="producto__nombre">Guayos Sala Indoor</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 219.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 9 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="9"
+              data-categoria="accesorios"
+              data-nombre="Balón oficial de partido"
+              data-precio="149900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/balon-oficial.jpg"
+                    alt="Balón oficial de partido"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Accesorios</p>
+                <h3 class="producto__nombre">Balón oficial de partido</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 149.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 10 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="10"
+              data-categoria="accesorios"
+              data-nombre="Guantes de arquero"
+              data-precio="89900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/guantes-arquero.jpg"
+                    alt="Guantes de arquero"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Accesorios</p>
+                <h3 class="producto__nombre">Guantes de arquero</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 89.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 11 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="11"
+              data-categoria="accesorios"
+              data-nombre="Espinilleras ligeras"
+              data-precio="49900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/espinilleras.jpg"
+                    alt="Espinilleras ligeras"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Accesorios</p>
+                <h3 class="producto__nombre">Espinilleras ligeras</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 49.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+
+            <!-- Producto 12 -->
+            <div
+              class="col-12 col-sm-6 col-lg-3"
+              data-producto
+              data-id="12"
+              data-categoria="accesorios"
+              data-nombre="Morral deportivo"
+              data-precio="119900"
+            >
+              <article class="producto">
+                <div class="producto__media">
+                  <img
+                    src="img/morral-deportivo.jpg"
+                    alt="Morral deportivo"
+                    loading="lazy"
+                  />
+                </div>
+                <p class="producto__categoria">Accesorios</p>
+                <h3 class="producto__nombre">Morral deportivo</h3>
+                <div class="producto__precios">
+                  <span class="producto__precio">$ 119.900</span>
+                </div>
+                <button type="button" class="btn-catalogo" data-agregar>
+                  Agregar al carrito
+                </button>
+              </article>
+            </div>
+          </div>
+
+          <div id="catalogo-vacio" class="catalogo__vacio" hidden>
+            <p>No encontramos productos con esos filtros.</p>
+            <button
+              type="button"
+              class="btn-catalogo btn-catalogo--borde"
+              id="catalogo-limpiar"
+            >
+              Quitar filtros
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- mas vendidos -->
+      <section></section>
+
+      <!-- preguntas frecuentes (sobre nosotros) -->
+      <section>
+        <section id="faq" class="seccion-faq py-5" aria-labelledby="titulo-faq">
+          <div class="container">
+            <h2 id="titulo-faq" class="titulo-seccion">Preguntas frecuentes</h2>
+            <p class="texto-intro mt-3 mb-5">
+              Resolvemos tus dudas antes de comprar.
+            </p>
+
+            <div class="acordeon-faq">
+              <details class="pregunta-faq" open>
                 <summary>¿Cómo agrego un producto al carrito?</summary>
-                <p>Solo debes darle clic al botón de agregar que aparece en cada producto. Luego abres el carrito para ver lo que llevas.</p>
-            </details>
+                <p>
+                  Solo debes darle clic al botón de agregar que aparece en cada
+                  producto. Luego abres el carrito para ver lo que llevas.
+                </p>
+              </details>
 
-            <details class="pregunta-faq">
+              <details class="pregunta-faq">
                 <summary>¿Qué pasa si cierro la página?</summary>
-                <p>Tu carrito se guarda en tu navegador, así que cuando vuelvas tus productos seguirán ahí.</p>
-            </details>
+                <p>
+                  Tu carrito se guarda en tu navegador, así que cuando vuelvas
+                  tus productos seguirán ahí.
+                </p>
+              </details>
 
-            <details class="pregunta-faq">
+              <details class="pregunta-faq">
                 <summary>¿Puedo quitar un producto del carrito?</summary>
-                <p>Sí. Abre el carrito y usa el botón de quitar junto al producto que no quieras.</p>
-            </details>
+                <p>
+                  Sí. Abre el carrito y usa el botón de quitar junto al producto
+                  que no quieras.
+                </p>
+              </details>
 
-            <details class="pregunta-faq">
+              <details class="pregunta-faq">
                 <summary>¿Qué medios de pago aceptan?</summary>
                 <p>Escribe aquí los medios de pago de tu tienda.</p>
-            </details>
-
-        </div>
-    </div>
-</section>
-            
-            <!-- sobre nosotros -->
-            <section id="nosotros" class="seccion-nosotros py-5" aria-labelledby="titulo-nosotros">
-    <div class="container">
-
-        <!-- Encabezado -->
-        <h2 id="titulo-nosotros" class="titulo-seccion">Sobre nosotros</h2>
-        <p class="texto-intro mt-3 mb-5">Somos un equipo que une el deporte con la tecnología.</p>
-
-        <div class="row g-4">
-
-            <!-- Columna izquierda: quiénes somos, misión y visión -->
-            <div class="col-12 col-lg-6">
-                <article class="tarjeta-nosotros p-4 h-100">
-                    <h3 class="subtitulo-nosotros">Quiénes somos</h3>
-                    <p>
-                        Cyber-Gala Sports es una tienda online de artículos deportivos
-                        con un estilo moderno y elegante. Creamos esta página para que
-                        comprar sea fácil, rápido y cómodo.
-                    </p>
-
-                    <h3 class="subtitulo-nosotros">Nuestra misión</h3>
-                    <p>
-                        Ofrecer productos deportivos de calidad y una experiencia de
-                        compra sencilla, donde tu carrito se guarda aunque cierres la página.
-                    </p>
-
-                    <h3 class="subtitulo-nosotros">Nuestra visión</h3>
-                    <p>
-                        Ser una tienda deportiva reconocida por su innovación, su diseño
-                        y su buen servicio.
-                    </p>
-                </article>
+              </details>
             </div>
+          </div>
+        </section>
 
-            <!-- Columna derecha: equipo -->
-            <div class="col-12 col-lg-6">
+        <!-- sobre nosotros -->
+        <section
+          id="nosotros"
+          class="seccion-nosotros py-5"
+          aria-labelledby="titulo-nosotros"
+        >
+          <div class="container">
+            <!-- Encabezado -->
+            <h2 id="titulo-nosotros" class="titulo-seccion">Sobre nosotros</h2>
+            <p class="texto-intro mt-3 mb-5">
+              Somos un equipo que une el deporte con la tecnología.
+            </p>
+
+            <div class="row g-4">
+              <!-- Columna izquierda: quiénes somos, misión y visión -->
+              <div class="col-12 col-lg-6">
+                <article class="tarjeta-nosotros p-4 h-100">
+                  <h3 class="subtitulo-nosotros">Quiénes somos</h3>
+                  <p>
+                    Cyber-Gala Sports es una tienda online de artículos
+                    deportivos con un estilo moderno y elegante. Creamos esta
+                    página para que comprar sea fácil, rápido y cómodo.
+                  </p>
+
+                  <h3 class="subtitulo-nosotros">Nuestra misión</h3>
+                  <p>
+                    Ofrecer productos deportivos de calidad y una experiencia de
+                    compra sencilla, donde tu carrito se guarda aunque cierres
+                    la página.
+                  </p>
+
+                  <h3 class="subtitulo-nosotros">Nuestra visión</h3>
+                  <p>
+                    Ser una tienda deportiva reconocida por su innovación, su
+                    diseño y su buen servicio.
+                  </p>
+                </article>
+              </div>
+
+              <!-- Columna derecha: equipo -->
+              <div class="col-12 col-lg-6">
                 <h3 class="subtitulo-nosotros titulo-equipo">Nuestro equipo</h3>
 
                 <!-- Celular: 1 tarjeta por fila | Tablet y PC: 2 por fila -->
                 <ul class="row g-3 list-unstyled mb-0">
+                  <!-- Valentina (con foto de GitHub) -->
+                  <li class="col-12 col-sm-6">
+                    <article class="tarjeta-integrante p-4 text-center">
+                      <div class="avatar-integrante">
+                        VB
+                        <img
+                          src="https://github.com/vbucurumalambo-glitch.png?size=200"
+                          alt="Foto de Valentina Bucuru"
+                          loading="lazy"
+                          onerror="this.remove()"
+                        />
+                      </div>
+                      <p class="nombre-integrante">Valentina Bucuru</p>
+                      <p class="rol-integrante mb-0">Integrante del equipo</p>
+                    </article>
+                  </li>
 
-                    <!-- Valentina (con foto de GitHub) -->
-                    <li class="col-12 col-sm-6">
-                        <article class="tarjeta-integrante p-4 text-center">
-                            <div class="avatar-integrante">
-                                VB
-                                <img src="https://github.com/vbucurumalambo-glitch.png?size=200"
-                                     alt="Foto de Valentina Bucuru"
-                                     loading="lazy"
-                                     onerror="this.remove()">
-                            </div>
-                            <p class="nombre-integrante">Valentina Bucuru</p>
-                            <p class="rol-integrante mb-0">Integrante del equipo</p>
-                        </article>
-                    </li>
+                  <!-- Alexis -->
+                  <li class="col-12 col-sm-6">
+                    <article class="tarjeta-integrante p-4 text-center">
+                      <div class="avatar-integrante">
+                        AR
+                        <img
+                          src="imgs/alexis.png"
+                          alt="Foto de Alexis Rodríguez Betancur"
+                          loading="lazy"
+                          onerror="this.remove()"
+                        />
+                      </div>
+                      <p class="nombre-integrante">Alexis Rodríguez Betancur</p>
+                      <p class="rol-integrante mb-0">Integrante del equipo</p>
+                    </article>
+                  </li>
 
-                    <!-- Alexis -->
-<li class="col-12 col-sm-6">
-    <article class="tarjeta-integrante p-4 text-center">
-        <div class="avatar-integrante">
-            AR
-            <img src="imgs/alexis.png"
-                 alt="Foto de Alexis Rodríguez Betancur"
-                 loading="lazy"
-                 onerror="this.remove()">
-        </div>
-        <p class="nombre-integrante">Alexis Rodríguez Betancur</p>
-        <p class="rol-integrante mb-0">Integrante del equipo</p>
-    </article>
-</li>
+                  <!-- Cristian -->
+                  <li class="col-12 col-sm-6">
+                    <article class="tarjeta-integrante p-4 text-center">
+                      <div class="avatar-integrante">
+                        CV
+                        <img
+                          src="imgs/cristian.png"
+                          alt="Foto de Cristian David Vélez Ramírez"
+                          loading="lazy"
+                          onerror="this.remove()"
+                        />
+                      </div>
+                      <p class="nombre-integrante">
+                        Cristian David Vélez Ramírez
+                      </p>
+                      <p class="rol-integrante mb-0">Integrante del equipo</p>
+                    </article>
+                  </li>
 
-                    <!-- Cristian -->
-                   <li class="col-12 col-sm-6">
-    <article class="tarjeta-integrante p-4 text-center">
-        <div class="avatar-integrante">
-            CV
-            <img src="imgs/cristian.png"
-                 alt="Foto de Cristian David Vélez Ramírez"
-                 loading="lazy"
-                 onerror="this.remove()">
-        </div>
-        <p class="nombre-integrante">Cristian David Vélez Ramírez</p>
-        <p class="rol-integrante mb-0">Integrante del equipo</p>
-    </article>
-</li>
-
-                    <!-- Guido -->
-                    <li class="col-12 col-sm-6">
-                        <article class="tarjeta-integrante p-4 text-center">
-                            <div class="avatar-integrante">GM</div>
-                            <p class="nombre-integrante">Guido Fernando Majín Ibarra</p>
-                            <p class="rol-integrante mb-0">Integrante del equipo</p>
-                        </article>
-                    </li>
-
+                  <!-- Guido -->
+                  <li class="col-12 col-sm-6">
+                    <article class="tarjeta-integrante p-4 text-center">
+                      <div class="avatar-integrante">GM</div>
+                      <p class="nombre-integrante">
+                        Guido Fernando Majín Ibarra
+                      </p>
+                      <p class="rol-integrante mb-0">Integrante del equipo</p>
+                    </article>
+                  </li>
                 </ul>
+              </div>
             </div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <aside class="offcanvas offcanvas-end" tabindex="-1" id="carritoPanel" aria-labelledby="carritoTitulo">
+    <div class="offcanvas-header">
+        <h5 id="carritoTitulo" class="offcanvas-title">Tu carrito</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+        <p id="carrito-vacio" class="text-center text-muted my-4">Tu carrito está vacío.</p>
+        <ul id="carrito-lista" class="list-unstyled flex-grow-1 mb-3"></ul>
 
+        <div class="carrito__pie">
+            <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
+                <span>Total</span>
+                <span id="carrito-total">$ 0</span>
+            </div>
+            <button type="button" class="btn-catalogo" id="carrito-pagar">Finalizar compra</button>
+            <button type="button" class="btn-catalogo btn-catalogo--borde mt-2" id="carrito-vaciar">Vaciar carrito</button>
         </div>
     </div>
-</section>
-f
+</aside>
+  </body>
+</html>

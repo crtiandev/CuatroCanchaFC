@@ -1,8 +1,8 @@
 /* ==========================================================
    CATALOGO – CuatroCancha Fc
    Los productos y sus imágenes se escriben en el HTML.
-   Este archivo solo se encarga de: buscar, filtrar por
-   categoría, ordenar y agregar al carrito.
+   Este archivo se encarga de: buscar, filtrar por
+   categoría, ordenar, agregar al carrito y mostrar el panel.
    ========================================================== */
 
 (() => {
@@ -157,6 +157,82 @@
         }, 1200);
     }
 
+    /* ---------- 6B. PANEL DEL CARRITO ---------- */
+    const panelLista = document.getElementById("carrito-lista");
+    const panelVacio = document.getElementById("carrito-vacio");
+    const panelTotal = document.getElementById("carrito-total");
+    const panelPie = document.querySelector(".carrito__pie");
+
+    const formatoPrecio = (n) => "$ " + Number(n).toLocaleString("es-CO");
+    const escapar = (s) =>
+        String(s).replace(/[&<>"']/g, (c) =>
+            ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+    function renderPanel() {
+        if (!panelLista) return;
+        const carrito = leerCarrito();
+        const total = carrito.reduce((t, p) => t + p.precio * p.cantidad, 0);
+
+        panelVacio.hidden = carrito.length > 0;
+        panelPie.hidden = carrito.length === 0;
+        panelTotal.textContent = formatoPrecio(total);
+
+        panelLista.innerHTML = carrito.map((p) => `
+          <li class="carrito__item" data-id="${p.id}">
+            ${p.imagen ? `<img src="${escapar(p.imagen)}" alt="${escapar(p.nombre)}">` : ""}
+            <div class="carrito__info">
+              <p class="carrito__nombre">${escapar(p.nombre)}</p>
+              <p class="carrito__precio">${formatoPrecio(p.precio * p.cantidad)}</p>
+              <div class="carrito__cantidad">
+                <button type="button" data-accion="restar" aria-label="Restar una unidad">−</button>
+                <span>${p.cantidad}</span>
+                <button type="button" data-accion="sumar" aria-label="Sumar una unidad">+</button>
+              </div>
+            </div>
+            <button type="button" class="carrito__quitar" data-accion="quitar" aria-label="Quitar ${escapar(p.nombre)}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </li>`).join("");
+    }
+
+    function cambiarCarrito(carrito) {
+        guardarCarrito(carrito);
+        actualizarContador();
+        renderPanel();
+    }
+
+    if (panelLista) {
+        panelLista.addEventListener("click", (e) => {
+            const btn = e.target.closest("[data-accion]");
+            if (!btn) return;
+            const id = Number(btn.closest("[data-id]").dataset.id);
+            let carrito = leerCarrito();
+            const item = carrito.find((p) => p.id === id);
+            if (!item) return;
+
+            if (btn.dataset.accion === "sumar") item.cantidad++;
+            if (btn.dataset.accion === "restar") item.cantidad--;
+            if (btn.dataset.accion === "quitar" || item.cantidad <= 0) {
+                carrito = carrito.filter((p) => p.id !== id);
+            }
+            cambiarCarrito(carrito);
+        });
+
+        document.getElementById("carrito-vaciar").addEventListener("click", () => cambiarCarrito([]));
+
+        document.getElementById("carrito-pagar").addEventListener("click", () => {
+            alert("¡Gracias por tu compra! (aquí conectas tu pasarela de pago)");
+        });
+
+        // Cuando se agrega un producto desde el catálogo, se redibuja el panel
+        document.addEventListener("carrito:actualizado", renderPanel);
+
+        // Si abres la tienda en otra pestaña, se mantiene sincronizado
+        window.addEventListener("storage", (e) => {
+            if (e.key === CLAVE_CARRITO) { actualizarContador(); renderPanel(); }
+        });
+    }
+
     /* ---------- 7. EVENTOS ---------- */
     filtros.forEach((boton) => {
         boton.addEventListener("click", () => {
@@ -197,4 +273,5 @@
     /* ---------- 8. INICIO ---------- */
     aplicar();
     actualizarContador();
+    renderPanel();
 })();
