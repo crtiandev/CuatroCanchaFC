@@ -215,7 +215,6 @@
         });
         ordenadas.forEach((tarjeta) => grid.appendChild(tarjeta));
 
-        // Mostrar u ocultar según categoría y búsqueda
         let visibles = 0;
         tarjetas.forEach((tarjeta) => {
             const coincideCategoria =
@@ -239,9 +238,7 @@
         });
     }
 
-    /* ---------- 6. IMÁGENES ---------- */
-    // Si una imagen no carga (ruta mal escrita o archivo faltante),
-    // se reemplaza por un ícono para que la tarjeta no quede rota.
+    /* ---------- IMÁGENES ---------- */
     function imagenFallida(img) {
         const icono = document.createElement("i");
         icono.className = "bi bi-image producto__icono";
@@ -249,8 +246,6 @@
         img.replaceWith(icono);
     }
 
-    // Aplica la regla anterior a todas las imágenes de un contenedor
-    // (se usa en el catálogo, en "Más vendidos" y en el carrito)
     function vincularImagenesFallidas(contenedor) {
         contenedor.querySelectorAll("img").forEach((img) => {
             img.addEventListener("error", () => imagenFallida(img), { once: true });
@@ -261,11 +256,10 @@
     vincularImagenesFallidas(grid);
     if (gridMasVendidos) vincularImagenesFallidas(gridMasVendidos);
 
-    /* ---------- 7. CARRITO ---------- */
+    /* ---------- CARRITO ---------- */
     function leerCarrito() {
         try {
             const guardado = JSON.parse(localStorage.getItem(CLAVE_CARRITO));
-            // Si lo guardado no es una lista (dato dañado), se empieza con un carrito vacío
             return Array.isArray(guardado) ? guardado : [];
         } catch (error) {
             return [];
@@ -276,21 +270,17 @@
         try {
             localStorage.setItem(CLAVE_CARRITO, JSON.stringify(carrito));
         } catch (error) {
-            // Si el navegador bloquea el almacenamiento, el catálogo sigue funcionando
         }
     }
 
-    // Suma las cantidades de todos los productos del carrito
     function contarUnidades(carrito) {
         return carrito.reduce((suma, item) => suma + item.cantidad, 0);
     }
 
-    // Suma precio x cantidad de todos los productos del carrito
     function calcularTotal(carrito) {
         return carrito.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
     }
 
-    // Actualiza cualquier elemento del header que tenga data-carrito-contador
     function actualizarContador() {
         const total = contarUnidades(leerCarrito());
         document.querySelectorAll("[data-carrito-contador]").forEach((el) => {
@@ -298,23 +288,19 @@
         });
     }
 
-    // Pequeña animación (CSS) del contador cada vez que se agrega algo
     function animarContador() {
         if (prefiereMenosMovimiento) return;
         document.querySelectorAll("[data-carrito-contador]").forEach((el) => {
             el.classList.remove("is-bump");
-            void el.offsetWidth; // reinicia la animación si se agrega varias veces seguidas
+            void el.offsetWidth;
             el.classList.add("is-bump");
         });
     }
 
-    // Guarda, actualiza el contador y avisa a las demás secciones.
-    // Todas las acciones del carrito (agregar, eliminar, vaciar...) pasan por aquí.
     function guardarYNotificar(carrito) {
         guardarCarrito(carrito);
         actualizarContador();
 
-        // Aviso para que otras secciones (carrito, más vendidos) puedan reaccionar
         document.dispatchEvent(new CustomEvent("carrito:actualizado", { detail: { carrito } }));
     }
 
@@ -341,7 +327,6 @@
         animarContador();
     }
 
-    // Elimina por completo un producto del carrito (con una pequeña animación de salida)
     function eliminarDelCarrito(id) {
         const quitar = () => guardarYNotificar(leerCarrito().filter((item) => item.id !== id));
         const fila = listaCarrito.querySelector(`[data-item-id="${id}"]`);
@@ -354,7 +339,6 @@
         }
     }
 
-    // Suma o resta unidades; si llega a 0, el producto se elimina
     function cambiarCantidad(id, diferencia) {
         const carrito = leerCarrito();
         const item = carrito.find((producto) => producto.id === id);
@@ -372,7 +356,6 @@
         guardarYNotificar([]);
     }
 
-    // Simula la compra: suma las ventas al ranking, vacía el carrito y muestra un mensaje de confirmación
     function finalizarCompra() {
         const carrito = leerCarrito();
         if (carrito.length === 0) return;
@@ -380,9 +363,9 @@
         const total = formatearPrecio(calcularTotal(carrito));
         const unidades = contarUnidades(carrito);
 
-        registrarVentas(carrito);   // Suma lo comprado al ranking de "Más vendidos"
+        registrarVentas(carrito);
         vaciarCarrito();
-        renderizarMasVendidos();    // Redibuja "Más vendidos" al instante
+        renderizarMasVendidos();
 
         mensajeCarrito.textContent =
             `¡Gracias por tu compra! Registramos tu pedido de ${unidades} ` +
@@ -390,8 +373,7 @@
         mensajeCarrito.hidden = false;
     }
 
-    /* ---------- 8. VISTA DEL CARRITO ---------- */
-    // Devuelve el HTML de una fila del carrito (los textos se escapan por seguridad)
+    /* ---------- VISTA DEL CARRITO ---------- */
     function crearItemCarrito(item) {
         const nombre = escaparHTML(item.nombre);
         return `
@@ -415,7 +397,6 @@
             </li>`;
     }
 
-    // Vuelve a dibujar el panel completo a partir de lo que hay en localStorage
     function renderizarCarrito() {
         const carrito = leerCarrito();
         const estaVacio = carrito.length === 0;
@@ -427,12 +408,9 @@
         pieCarrito.hidden = estaVacio;
         totalCarrito.textContent = formatearPrecio(calcularTotal(carrito));
 
-        // El mensaje de "gracias" desaparece apenas se agrega un producto nuevo
         if (!estaVacio) mensajeCarrito.hidden = true;
     }
 
-    /* ---------- 9. NAVEGACIÓN ---------- */
-    // Marca en la navbar la sección que se está viendo (clase "active" + aria-current)
     function resaltarSeccionActiva() {
         const enlaces = document.querySelectorAll("[data-seccion]");
         if (!("IntersectionObserver" in window)) return;
@@ -496,8 +474,6 @@
         aplicar();
     });
 
-    // Un solo listener para todos los botones "Agregar al carrito"
-    // (funciona tanto en el catálogo como en "Más vendidos")
     document.addEventListener("click", (evento) => {
         const boton = evento.target.closest("[data-agregar]");
         if (!boton) return;
@@ -505,7 +481,6 @@
         confirmarEnBoton(boton);
     });
 
-    // Un solo listener para los botones de cada fila del carrito: sumar, restar y eliminar
     listaCarrito.addEventListener("click", (evento) => {
         const boton = evento.target.closest("[data-accion]");
         if (!boton) return;
@@ -527,10 +502,8 @@
     botonVaciar.addEventListener("click", vaciarCarrito);
     botonFinalizar.addEventListener("click", finalizarCompra);
 
-    // Cada vez que el carrito cambia, el panel se vuelve a dibujar
     document.addEventListener("carrito:actualizado", renderizarCarrito);
 
-    // Si el carrito cambia en otra pestaña, esta pestaña se sincroniza
     window.addEventListener("storage", (evento) => {
         if (evento.key !== CLAVE_CARRITO) return;
         actualizarContador();
