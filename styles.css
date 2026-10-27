@@ -326,3 +326,52 @@ body {
         transition: none;
     }
 }
+
+
+/* carousel banner */
+.banner-carousel .carousel-item {
+    height: 80vh;
+    min-height: 500px;
+    background-color: var(--bg-carbon);
+}
+
+.banner-carousel .carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    opacity: 0.5;
+}
+
+.banner-content {
+    padding: 4rem 2rem;
+}
+
+.banner-carousel .carousel-caption p.banner-text,
+.banner-carousel .carousel-caption .banner-text {
+    color: var(--text-secondary, #C7C2B3) !important;
+    font-size: 1.15rem;
+}
+
+.banner-title {
+    font-family: var(--font-title);
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+.banner-title span {
+    color: var(--gold-light);
+}
+
+.btn-neon-action {
+    background-color: var(--green-neon);
+    color: var(--text-dark);
+    font-weight: 700;
+    border-radius: 0px;
+    padding: 12px 28px;
+    transition: 200ms ease;
+}
+
+.btn-neon-action:hover {
+    background-color: #22cc55;
+    color: var(--text-dark);
+}
+
