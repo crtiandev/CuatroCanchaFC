@@ -1,4 +1,4 @@
-# ⚽ CuatroCancha FC — Tienda Deportiva
+# ⚽ CuatroCancha FC — Tienda Deportiva de Alta Gama
 
 <div align="center">
 
@@ -11,18 +11,18 @@
 ---
 
 ## 📋 Descripción del Proyecto
-**CuatroCancha FC** es una plataforma e-commerce web de alta gama diseñada exclusivamente para los verdaderos apasionados del fútbol. El proyecto ofrece una experiencia visual elegante y moderna (combinando tonos oscuros y detalles dorados), enfocándose en la venta de indumentaria y artículos deportivos de máxima calidad. 
+**CuatroCancha FC** es una plataforma e-commerce web diseñada exclusivamente para los verdaderos apasionados del fútbol. El proyecto ofrece una experiencia visual elegante y moderna (combinando tonos oscuros y detalles dorados), enfocándose en la venta de indumentaria y artículos deportivos de máxima calidad. 
 
 El desarrollo se realiza bajo una metodología colaborativa en equipo, aplicando un diseño responsivo riguroso, arquitectura semántica y lógica interactiva impulsada por JavaScript moderno con persistencia de datos.
 
 ---
 
 ## ✨ Características Principales
-* **Diseño Responsivo (Mobile-First):** Estructura adaptable a dispositivos móviles, tablets y escritorios utilizando **Bootstrap 5** combinada con clases y variables CSS personalizadas.
-* **Navegación Fluida:** Barra de navegación fija superior y pie de página de tres columnas estructurado con información de marca, enlaces rápidos y canales de contacto.
+* **Diseño Responsivo (Mobile-First):** Estructura adaptable a dispositivos móviles, tablets y escritorios utilizando **Bootstrap 5** combinada con clases y variables CSS personalizadas, además de una barra de navegación fija superior (`fixed-top`).
+* **Navegación Fluida:** Barra de navegación persistente y pie de página de tres columnas estructurado con información de marca, enlaces rápidos y canales de contacto.
 * **Catálogo Dinámico:** Renderizado automático de productos a partir de un arreglo de objetos en JavaScript.
 * **Carrito de Compras Completo:** Funcionalidades para agregar, visualizar y eliminar productos seleccionados de manera interactiva.
-* **Persistencia con LocalStorage:** El carrito de compras almacena los datos en el navegador para evitar pérdidas de información al recargar la página.
+* **Persistencia con LocalStorage:** El carrito de compras almacena los datos en la memoria del navegador para evitar pérdidas de información al recargar la página.
 
 ---
 
