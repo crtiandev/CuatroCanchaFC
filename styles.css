@@ -57,7 +57,7 @@ body {
     color: var(--gold-light);
 }
 
-.btn-neon-action {
+.btn-oferts {
     background-color: var(--green-neon);
     color: var(--text-dark);
     font-weight: 700;
@@ -66,7 +66,7 @@ body {
     transition: 200ms ease;
 }
 
-.btn-neon-action:hover {
+.btn-oferts:hover {
     background-color: #22cc55;
     color: var(--text-dark);
 }
