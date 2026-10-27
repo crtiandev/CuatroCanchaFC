@@ -11,9 +11,15 @@
     --green-dark: #082010;
     --gold-dark: #9C7D22;
     --color-white: #FFFFFF;
+    --green-neon-hover: #22cc55;
 
     --font-title: 'Playfair Display', 'DM Serif Display', serif;
     --font-interface: 'Inter', sans-serif;
+}
+
+/* Desplazamiento suave al usar los enlaces de la navbar (se desactiva más abajo si la persona pide menos movimiento) */
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -23,13 +29,20 @@ body {
     padding-top: 80px;
 }
 
+/* Evita que la navbar fija tape el título de la sección al navegar con los enlaces */
+section[id] {
+    scroll-margin-top: 80px;
+}
+
 /* ==========================================================
    CATALOGO
    Todas las clases empiezan por .catalogo, .filtro, .producto
    o .btn-catalogo para no chocar con el trabajo del equipo.
    ========================================================== */
 
-.catalogo {
+/* .seccion comparte estilos con .catalogo (Más vendidos y Preguntas frecuentes) */
+.catalogo,
+.seccion {
     --catalogo-borde: rgba(245, 240, 224, 0.14);
     padding: 4rem 0 5rem;
 }
@@ -184,6 +197,8 @@ body {
     border-top: 2px solid var(--gold-classic);
     padding: 1rem;
     transition: border-color 0.2s;
+    /* Animación de entrada: las tarjetas aparecen suavemente cuando JS las dibuja o las reordena */
+    animation: aparecer 0.45s ease-out both;
 }
 
 .producto:hover {
@@ -228,6 +243,13 @@ body {
     margin: 0 0 0.6rem;
 }
 
+/* Cantidad vendida (solo aparece en las tarjetas de "Más vendidos") */
+.producto__ventas {
+    color: var(--green-neon);
+    font-size: 0.85rem;
+    margin: 0 0 0.6rem;
+}
+
 .producto__precios {
     display: flex;
     align-items: baseline;
@@ -245,6 +267,9 @@ body {
 
 /* ---------- Botones del catálogo ---------- */
 .btn-catalogo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 44px;
     border: 1px solid var(--green-neon);
@@ -253,6 +278,7 @@ body {
     font-family: var(--font-interface);
     font-size: 0.9rem;
     font-weight: 600;
+    text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
@@ -295,14 +321,22 @@ body {
 
 /* ---------- Foco visible (teclado) ---------- */
 .filtro:focus-visible,
-.btn-catalogo:focus-visible {
+.btn-catalogo:focus-visible,
+.carrito:focus-visible,
+.carrito-item__boton:focus-visible,
+.carrito-item__eliminar:focus-visible,
+.footer-enlace:focus-visible,
+.footer-icono:focus-visible,
+.btn-neon-action:focus-visible,
+.accordion-button:focus-visible {
     outline: 2px solid var(--gold-light);
     outline-offset: 2px;
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 767.98px) {
-    .catalogo {
+    .catalogo,
+    .seccion {
         padding: 3rem 0 4rem;
     }
 
@@ -321,10 +355,55 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
     .filtro,
     .btn-catalogo,
     .producto {
         transition: none;
+    }
+
+    /* Se desactivan también las animaciones nuevas */
+    .producto,
+    .carrito__contador,
+    .carrito-item {
+        animation: none;
+    }
+}
+
+/* ---------- Animaciones (keyframes) ---------- */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rebote {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.45);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes salir {
+    to {
+        opacity: 0;
+        transform: translateX(40px);
     }
 }
 
@@ -340,10 +419,6 @@ body {
     object-fit: cover;
     height: 100%;
     opacity: 0.5;
-}
-
-.banner-content {
-    padding: 4rem 2rem;
 }
 
 .banner-carousel .carousel-caption p.banner-text,
@@ -362,17 +437,23 @@ body {
     color: var(--gold-light);
 }
 
+/* Botón de las diapositivas del banner.
+   Antes la clase del HTML (.btn-neon-action) no existía en el CSS; se mantiene .btn-oferts como alias. */
+.btn-neon-action,
 .btn-oferts {
     background-color: var(--green-neon);
     color: var(--text-dark);
     font-weight: 700;
+    border: 1px solid var(--green-neon);
     border-radius: 0px;
     padding: 12px 28px;
     transition: 200ms ease;
 }
 
+.btn-neon-action:hover,
 .btn-oferts:hover {
-    background-color: #22cc55;
+    background-color: var(--green-neon-hover);
+    border-color: var(--green-neon-hover);
     color: var(--text-dark);
 }
 
@@ -386,9 +467,6 @@ body {
     background-color: var(--bg-carbon);
     border-bottom: 1px solid var(--gold-classic);
 }
-.navbar:hover {
-    color: var(--green-neon);
-}
 
 .navbar .navbar-nav .nav-link {
     color: var(--gold-light);
@@ -396,18 +474,358 @@ body {
 .navbar .navbar-nav .nav-link:hover {
     color: var(--green-neon);
 }
+/* Enlace de la sección que se está viendo (lo marca script.js) */
+.navbar .navbar-nav .nav-link.active {
+    color: var(--text-main);
+    text-decoration: underline;
+    text-decoration-color: var(--gold-classic);
+    text-underline-offset: 6px;
+}
+
+/* Botón del carrito en la navbar */
 .carrito{
+    position: relative;
+    background: transparent;
+    border: 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 1.4rem;
+    line-height: 1;
     color: var(--gold-light);
+    cursor: pointer;
+    transition: color 0.2s;
 }
 .carrito:hover {
     color: var(--green-neon);
+}
+
+/* Globo con la cantidad de productos del carrito */
+.carrito__contador {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background-color: var(--green-neon);
+    color: var(--text-dark);
+    font-family: var(--font-interface);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+}
+
+.carrito__contador.is-bump {
+    animation: rebote 0.35s ease-out;
 }
 
 .navbar-toggler-icon {
     filter: invert(1);
 }
 .navbar-toggler {
-   color: #F1D27A;
+   color: var(--gold-light);
+   border-color: var(--gold-dark);
+}
+
+/* ==========================================================
+   PANEL DEL CARRITO (offcanvas de Bootstrap)
+   ========================================================== */
+
+.carrito-panel {
+    --bs-offcanvas-bg: var(--bg-surface);
+    --bs-offcanvas-color: var(--text-main);
+    --bs-offcanvas-width: 420px;
+    --catalogo-borde: rgba(245, 240, 224, 0.14);
+    border-left: 1px solid var(--gold-classic);
+}
+
+.carrito-panel .offcanvas-header {
+    border-bottom: 1px solid var(--catalogo-borde);
+}
+
+.carrito-panel__titulo {
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.carrito-panel .btn-close {
+    filter: invert(1);
+}
+
+/* El atributo hidden debe ganar sobre los display: flex de este panel */
+.carrito-panel [hidden] {
+    display: none !important;
+}
+
+/* Carrito vacío */
+.carrito-panel__vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    border: 1px dashed var(--catalogo-borde);
+    color: var(--text-secondary);
+}
+
+.carrito-panel__vacio .bi {
+    font-size: 2.5rem;
+    color: var(--gold-dark);
+}
+
+.carrito-panel__vacio p {
+    margin: 0;
+}
+
+/* Mensaje de compra finalizada */
+.carrito-panel__mensaje {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--green-neon);
+    background-color: var(--green-dark);
+    color: var(--text-main);
+}
+
+/* Lista de productos */
+.carrito-panel__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.carrito-item {
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
+    gap: 0.9rem;
+    align-items: start;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--catalogo-borde);
+}
+
+.carrito-item.is-saliendo {
+    animation: salir 0.25s ease-in forwards;
+}
+
+.carrito-item__media {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.22), var(--bg-carbon) 75%);
+}
+
+.carrito-item__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carrito-item__nombre {
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0 0 0.2rem;
+}
+
+.carrito-item__precio {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0 0 0.6rem;
+}
+
+.carrito-item__cantidad {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--catalogo-borde);
+}
+
+.carrito-item__boton {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 0;
+    color: var(--gold-light);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.carrito-item__boton:hover {
+    background-color: var(--gold-classic);
+    color: var(--text-dark);
+}
+
+.carrito-item__unidades {
+    min-width: 32px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.carrito-item__lado {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
+}
+
+.carrito-item__subtotal {
+    color: var(--gold-classic);
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.carrito-item__eliminar {
+    background: transparent;
+    border: 1px solid var(--catalogo-borde);
+    color: var(--text-secondary);
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.carrito-item__eliminar:hover {
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+/* Pie del panel: total y botones */
+.carrito-panel__pie {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem 1rem;
+    border-top: 1px solid var(--catalogo-borde);
+}
+
+.carrito-panel__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.carrito-panel__total strong {
+    color: var(--gold-classic);
+    font-size: 1.35rem;
+}
+
+.carrito-panel__vaciar {
+    width: 100%;
+}
+
+@media (max-width: 575.98px) {
+    .carrito-item {
+        grid-template-columns: 56px 1fr auto;
+        gap: 0.7rem;
+    }
+
+    .carrito-item__media {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+/* ==========================================================
+   PREGUNTAS FRECUENTES (acordeón de Bootstrap con la paleta de la tienda)
+   ========================================================== */
+
+.faq {
+    --bs-accordion-bg: var(--bg-surface);
+    --bs-accordion-color: var(--text-secondary);
+    --bs-accordion-border-color: var(--catalogo-borde);
+    --bs-accordion-border-radius: 0;
+    --bs-accordion-inner-border-radius: 0;
+    --bs-accordion-btn-color: var(--text-main);
+    --bs-accordion-btn-bg: var(--bg-surface);
+    --bs-accordion-active-color: var(--gold-light);
+    --bs-accordion-active-bg: var(--bg-surface);
+    --bs-accordion-btn-focus-box-shadow: none;
+    /* Flecha dorada en lugar de la azul/oscura de Bootstrap */
+    --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23F1D27A'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23F1D27A'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    border-top: 2px solid var(--gold-classic);
+}
+
+.faq .accordion-button {
+    font-family: var(--font-interface);
+    font-weight: 600;
+}
+
+.faq .accordion-button:not(.collapsed) {
+    box-shadow: inset 0 -1px 0 var(--catalogo-borde);
+}
+
+.faq .accordion-body {
+    max-width: 70ch;
+}
+
+/* Estilos Footer */
+
+/* Contraste corregido: texto oscuro sobre dorado claro (antes dorado oscuro sobre dorado claro, ~2.8:1) */
+.footer-tienda {
+    background-color: var(--gold-light); /* O usa tu variable de fondo oscuro, ej: var(--bg-carbon) */
+    color: var(--text-dark);
+    border-top: 1px solid var(--gold-classic);
+}
+
+.footer-titulo {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* El nombre de la marca (h2) es un poco más grande que los demás títulos del footer */
+.footer-titulo--marca {
+    font-size: 1.35rem;
+}
+
+.footer-texto {
+    color: var(--text-dark);
+    opacity: 0.85;
+    font-size: 0.9rem;
+}
+
+.footer-enlace {
+    color: var(--text-dark);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+.footer-enlace:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-icono {
+    color: var(--text-dark);
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+.footer-icono:hover {
+    transform: translateY(-3px);
+}
+
+.footer-divisor {
+    border-color: var(--text-dark) ;
+    opacity: 0.3;
+}
+
+/* Foco visible del footer: el anillo claro de arriba no se vería sobre fondo dorado claro */
+.footer-tienda .footer-enlace:focus-visible,
+.footer-tienda .footer-icono:focus-visible {
+    outline-color: var(--text-dark);
 }
 
 /* lo mas vendido  */
@@ -473,48 +891,50 @@ body {
     color: var(--text-dark, #050706) !important;
 }
 
-/* Estilos Footer */
 
-.footer-tienda {
-    background-color: #F1D27A; /* O usa tu variable de fondo oscuro, ej: var(--bg-carbon) */
-    color: var(--gold-dark);
-    border-top: 1px solid var(--gold-classic);
+/* carousel banner */
+.banner-carousel .carousel-item {
+    height: 80vh;
+    min-height: 500px;
+    background-color: var(--bg-carbon);
 }
 
-.footer-titulo {
-    color: var(--gold-dark);
-    font-weight: bold;
+.banner-carousel .carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    opacity: 0.5;
 }
 
-.footer-texto {
-    color: var(--gold-dark);
-    opacity: 0.85;
-    font-size: 0.9rem;
+.banner-content {
+    padding: 4rem 2rem;
 }
 
-.footer-enlace {
-    color: var(--gold-dark);
-    text-decoration: none;
-    opacity: 0.85;
-    transition: opacity 0.3s ease;
+.banner-carousel .carousel-caption p.banner-text,
+.banner-carousel .carousel-caption .banner-text {
+    color: var(--text-secondary, #C7C2B3) !important;
+    font-size: 1.15rem;
 }
 
-.footer-enlace:hover {
-    opacity: 1;
-    text-decoration: underline;
+.banner-title {
+    font-family: var(--font-title);
+    color: var(--text-main);
+    font-weight: 700;
 }
 
-.footer-icono {
-    color: var(--gold-dark);
-    font-size: 1.25rem;
-    transition: transform 0.3s ease;
+.banner-title span {
+    color: var(--gold-light);
 }
 
-.footer-icono:hover {
-    transform: translateY(-3px);
+.btn-oferts {
+    background-color: var(--green-neon);
+    color: var(--text-dark);
+    font-weight: 700;
+    border-radius: 0px;
+    padding: 12px 28px;
+    transition: 200ms ease;
 }
 
-.footer-divisor {
-    border-color: var(--gold-classic) ;
-    opacity: 0.3;
+.btn-oferts:hover {
+    background-color: #22cc55;
+    color: var(--text-dark);
 }

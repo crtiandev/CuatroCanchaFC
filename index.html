@@ -1,63 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Idioma corregido a español (antes "en") para lectores de pantalla y buscadores -->
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CuatroCancha FC: camisetas, guayos y accesorios de fútbol para cada partido.">
     <title>CuatroCancha Fc</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons es la única librería de íconos (se quitó Font Awesome para no duplicar) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/png" href="imgs/logo.png">
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
     <!-- header -->
     <!--Traje una navbar de bootstrap,-->
-    <header>
-        <nav class="navbar navbar-expand-lg fixed-top shadow">
+    <!-- sticky-top: la barra (y el carrito) quedan siempre visibles al bajar por la página -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg" aria-label="Navegación principal">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                    aria-label="Mostrar u ocultar el menú">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="#inicio">
                     <img class="logo" src="imgs/logo.png" alt="CuatroCancha FC">
                 </a>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <!-- Cada enlace apunta al id de su sección; script.js marca con aria-current el activo -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#inicio">Inicio</a>
+                            <a class="nav-link" data-seccion="inicio" href="#inicio">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#catalogo">Catalogo</a>
+                            <a class="nav-link" data-seccion="catalogo" href="#catalogo">Catalogo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Mas vendidos</a>
+                            <a class="nav-link" data-seccion="mas-vendidos" href="#mas-vendidos">Más vendidos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Preguntas frecuentes</a>
+                            <a class="nav-link" data-seccion="faq" href="#faq">Preguntas frecuentes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#">Sobre nosotros</a>
                         </li>
                     </ul>
                 </div>
-                <a href="#" class="carrito ms-auto me-3">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </a>
+                <!-- Botón del carrito: abre el panel lateral (offcanvas de Bootstrap) y muestra el contador -->
+                <button type="button" class="carrito ms-auto me-3" data-bs-toggle="offcanvas"
+                    data-bs-target="#carritoPanel" aria-controls="carritoPanel" aria-label="Abrir el carrito">
+                    <i class="bi bi-cart3" aria-hidden="true"></i>
+                    <span class="carrito__contador" data-carrito-contador aria-live="polite">0</span>
+                </button>
             </div>
         </nav>
     </header>
@@ -65,7 +71,7 @@
     <main>
 
         <!-- banner -->
-        <section id="inicio" class="position-relative">
+        <section id="inicio" class="position-relative" aria-label="Novedades de la tienda">
             <div id="bannerCarousel" class="carousel slide carousel-fade banner-carousel" data-bs-ride="carousel"
                 data-bs-interval="3500">
                 <div class="carousel-inner h-100">
@@ -75,9 +81,11 @@
                             class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 ">
                             <span class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase">Nueva
                                 Temporada</span>
+                            <!-- Único h1 de la página (SEO y accesibilidad); las otras diapositivas usan h2 con el mismo estilo -->
                             <h1 class="display-3 banner-title">La gloria se compra <span>en la cancha.</span></h1>
-                            <p class="lead banner-text mb-4">Camisetas, guayos y accesorios inspirados en los mejores del mundo.</p>
-                            <a href="#catalogo" class="btn btn-oferts">Comprar ahora</a>
+                            <p class="lead banner-text mb-4">Camisetas, guayos y accesorios inspirados en los mejores
+                                del mundo.</p>
+                            <a href="#catalogo" class="btn btn-neon-action">Comprar ahora</a>
                         </div>
                     </div>
 
@@ -87,9 +95,10 @@
                             class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
                             <span class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase">Colección
                                 Golty</span>
-                            <h1 class="display-3 banner-title">Equipamiento Profesional <span>Independiente</span></h1>
-                            <p class="lead banner-text mb-4">Encuentra balones oficiales, maletas y guayos diseñados para el máximo rendimiento.</p>
-                            <a href="#catalogo" class="btn btn-oferts">Explorar Catálogo</a>
+                            <h2 class="display-3 banner-title">Equipamiento Profesional <span>Independiente</span></h2>
+                            <p class="lead banner-text mb-4">Encuentra balones oficiales, maletas y guayos diseñados
+                                para el máximo rendimiento.</p>
+                            <a href="#catalogo" class="btn btn-neon-action">Explorar Catálogo</a>
                         </div>
                     </div>
 
@@ -99,9 +108,10 @@
                             class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
                             <span class="badge bg-warning text-dark mb-2 fw-bold px-3 py-2 text-uppercase">Edición
                                 Leyendas</span>
-                            <h1 class="display-3 banner-title">Viste como <span>un campeón</span></h1>
-                            <p class="lead banner-text mb-4">Lleva la indumentaria oficial de las grandes selecciones y haz historia en cada partido.</p>
-                            <a href="#catalogo" class="btn btn-oferts">Ver Ofertas</a>
+                            <h2 class="display-3 banner-title">Viste como <span>un campeón</span></h2>
+                            <p class="lead banner-text mb-4">Lleva la indumentaria oficial de las grandes selecciones y
+                                haz historia en cada partido.</p>
+                            <a href="#mas-vendidos" class="btn btn-neon-action">Ver Ofertas</a>
                         </div>
                     </div>
                 </div>
@@ -144,187 +154,12 @@
 
                 <p id="catalogo-resultados" class="catalogo__resultados" aria-live="polite"></p>
 
-                <div id="catalogo-grid" class="row g-4">
-                    <!-- Producto 1 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="1" data-categoria="camisetas" data-nombre="Camiseta local 2026" data-precio="189900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/clocal..jpg" alt="Camiseta local 2026" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Camisetas</p>
-                            <h3 class="producto__nombre">Camiseta local 2026</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 189.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 2 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="2" data-categoria="camisetas" data-nombre="Camiseta visitante 2026" data-precio="189900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/cvisitante.jpg" alt="Camiseta visitante 2026" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Camisetas</p>
-                            <h3 class="producto__nombre">Camiseta visitante 2026</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 189.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 3 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="3" data-categoria="camisetas" data-nombre="Camiseta retro 1998" data-precio="159900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/Camisetaretro1998.jpg" alt="Camiseta retro 1998" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Camisetas</p>
-                            <h3 class="producto__nombre">Camiseta retro 1998</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 159.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 4 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="4" data-categoria="camisetas" data-nombre="Camiseta de arquero" data-precio="174900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/carquero.jpg" alt="Camiseta de arquero" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Camisetas</p>
-                            <h3 class="producto__nombre">Camiseta de arquero</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 174.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 5 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="5" data-categoria="guayos" data-nombre="Guayos Velocidad Pro" data-precio="399900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/guayos1.jpg" alt="Guayos Velocidad Pro" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Guayos</p>
-                            <h3 class="producto__nombre">Guayos Velocidad Pro</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 399.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 6 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="6" data-categoria="guayos" data-nombre="Guayos Control Elite" data-precio="429900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/guayosrojos.jpg" alt="Guayos Control Elite" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Guayos</p>
-                            <h3 class="producto__nombre">Guayos Control Elite</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 429.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 7 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="7" data-categoria="guayos" data-nombre="Guayos Césped Sintético" data-precio="259900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/guayos4.jpg" alt="Guayos Césped Sintético" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Guayos</p>
-                            <h3 class="producto__nombre">Guayos Césped Sintético</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 259.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 8 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="8" data-categoria="guayos" data-nombre="Guayos Sala Indoor" data-precio="219900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/grojos.jpg" alt="Guayos Sala Indoor" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Guayos</p>
-                            <h3 class="producto__nombre">Guayos Sala Indoor</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 219.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 9 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="9" data-categoria="accesorios" data-nombre="Balón oficial de partido" data-precio="149900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/balon.jpg" alt="Balón oficial de partido" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Accesorios</p>
-                            <h3 class="producto__nombre">Balón oficial de partido</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 149.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 10 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="10" data-categoria="accesorios" data-nombre="Guantes de arquero" data-precio="89900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/guantes.jpg" alt="Guantes de arquero" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Accesorios</p>
-                            <h3 class="producto__nombre">Guantes de arquero</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 89.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 11 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="11" data-categoria="accesorios" data-nombre="Espinilleras ligeras" data-precio="49900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/canilleras.jpg" alt="Espinilleras ligeras" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Accesorios</p>
-                            <h3 class="producto__nombre">Espinilleras ligeras</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 49.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-
-                    <!-- Producto 12 -->
-                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="12" data-categoria="accesorios" data-nombre="Morral deportivo" data-precio="119900">
-                        <article class="producto">
-                            <div class="producto__media">
-                                <img src="imgs/maletin.jpg" alt="Morral deportivo" loading="lazy">
-                            </div>
-                            <p class="producto__categoria">Accesorios</p>
-                            <h3 class="producto__nombre">Morral deportivo</h3>
-                            <div class="producto__precios">
-                                <span class="producto__precio">$ 119.900</span>
-                            </div>
-                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
-                        </article>
-                    </div>
-                </div>
+                <!--
+                    Las tarjetas de los 12 productos ya NO se escriben aquí:
+                    script.js las genera dinámicamente desde el array PRODUCTOS
+                    (los comentarios "Producto 1" … "Producto 12" ahora viven en ese array).
+                -->
+                <div id="catalogo-grid" class="row g-4"></div>
 
                 <div id="catalogo-vacio" class="catalogo__vacio" hidden>
                     <p>No encontramos productos con esos filtros.</p>
@@ -334,6 +169,8 @@
             </div>
         </section>
 
+        <!-- mas vendidos -->
+        <!-- script.js llena esta sección con los 4 productos de mayor "ventas" del array PRODUCTOS -->
         <!-- mas vendidos -->
         <section id="mas-vendidos" class="mas-vendidos py-5" aria-labelledby="mas-vendidos-titulo">
             <div class="container">
@@ -367,12 +204,133 @@
                 </div>
             </div>
         </section>
-        <!-- preguntas frecuentes (sobre nosotros) -->
-        <section>
 
+        <!-- preguntas frecuentes (sobre nosotros) -->
+        <!-- Acordeón de Bootstrap: solo un panel abierto a la vez (data-bs-parent) -->
+        <section id="faq" class="seccion" aria-labelledby="faq-titulo">
+            <div class="container">
+                <div class="catalogo__encabezado">
+                    <h2 id="faq-titulo" class="catalogo__titulo">Preguntas frecuentes</h2>
+                    <p class="catalogo__subtitulo">Somos CuatroCancha FC, una tienda deportiva hecha por hinchas
+                        para hinchas. Resolvemos tus dudas más comunes.</p>
+                </div>
+
+                <div class="accordion faq" id="faqAcordeon">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq-1" aria-expanded="true" aria-controls="faq-1">
+                                ¿Cómo agrego productos al carrito?
+                            </button>
+                        </h3>
+                        <div id="faq-1" class="accordion-collapse collapse show" data-bs-parent="#faqAcordeon">
+                            <div class="accordion-body">
+                                Pulsa "Agregar al carrito" en el producto que quieras. Verás el contador del ícono
+                                del carrito subir y podrás revisar, cambiar cantidades o eliminar productos desde ese
+                                mismo ícono.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq-2" aria-expanded="false" aria-controls="faq-2">
+                                ¿Mi carrito se pierde si cierro la página?
+                            </button>
+                        </h3>
+                        <div id="faq-2" class="accordion-collapse collapse" data-bs-parent="#faqAcordeon">
+                            <div class="accordion-body">
+                                No. Tu carrito se guarda en este navegador, así que sigue ahí aunque cierres o
+                                recargues la página.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq-3" aria-expanded="false" aria-controls="faq-3">
+                                ¿Hacen envíos a toda Colombia?
+                            </button>
+                        </h3>
+                        <div id="faq-3" class="accordion-collapse collapse" data-bs-parent="#faqAcordeon">
+                            <div class="accordion-body">
+                                Sí. Despachamos desde Bogotá a todo el país. El tiempo de entrega depende de la
+                                ciudad de destino.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq-4" aria-expanded="false" aria-controls="faq-4">
+                                ¿Puedo cambiar un producto si no me queda bien?
+                            </button>
+                        </h3>
+                        <div id="faq-4" class="accordion-collapse collapse" data-bs-parent="#faqAcordeon">
+                            <div class="accordion-body">
+                                Sí. Escríbenos a info@cuatrocanchafc.com con tu pedido y te ayudamos con el cambio
+                                de talla o de referencia.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#faq-5" aria-expanded="false" aria-controls="faq-5">
+                                ¿Cómo puedo contactarlos?
+                            </button>
+                        </h3>
+                        <div id="faq-5" class="accordion-collapse collapse" data-bs-parent="#faqAcordeon">
+                            <div class="accordion-body">
+                                Por correo en info@cuatrocanchafc.com o por nuestras redes sociales: Instagram,
+                                Facebook, TikTok y WhatsApp, que encuentras al final de la página.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main>
+
+    <!-- Panel del carrito (offcanvas de Bootstrap): script.js dibuja aquí los productos, el total y los botones -->
+    <aside class="offcanvas offcanvas-end carrito-panel" tabindex="-1" id="carritoPanel"
+        aria-labelledby="carritoPanelTitulo">
+        <div class="offcanvas-header">
+            <h2 class="offcanvas-title carrito-panel__titulo" id="carritoPanelTitulo">Tu carrito</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar el carrito"></button>
+        </div>
+
+        <div class="offcanvas-body">
+            <!-- Mensaje tras finalizar la compra -->
+            <p id="carrito-mensaje" class="carrito-panel__mensaje" role="status" hidden></p>
+
+            <!-- Estado vacío: invita a seguir comprando -->
+            <div id="carrito-vacio" class="carrito-panel__vacio">
+                <i class="bi bi-cart-x" aria-hidden="true"></i>
+                <p>Tu carrito está vacío. Agrega camisetas, guayos o accesorios desde el catálogo.</p>
+                <a href="#catalogo" class="btn-catalogo btn-catalogo--borde" data-bs-dismiss="offcanvas">Ir al catálogo</a>
+            </div>
+
+            <!-- Lista de productos del carrito -->
+            <ul id="carrito-lista" class="carrito-panel__lista list-unstyled" aria-label="Productos en el carrito"></ul>
+        </div>
+
+        <!-- Resumen: total y acciones (se oculta cuando el carrito está vacío) -->
+        <div id="carrito-pie" class="carrito-panel__pie" hidden>
+            <p class="carrito-panel__total">
+                <span>Total</span>
+                <strong id="carrito-total">$ 0</strong>
+            </p>
+            <button type="button" class="btn-catalogo" id="carrito-finalizar">Finalizar compra</button>
+            <button type="button" class="btn-catalogo btn-catalogo--borde carrito-panel__vaciar"
+                id="carrito-vaciar">Vaciar carrito</button>
+        </div>
+    </aside>
 
     <!-- Footer-->
 
@@ -381,7 +339,7 @@
             <div class="row g-4">
 
                 <div class="col-lg-4 col-md-6">
-                    <h5 class="footer-titulo mb-3">CuatroCancha FC</h5>
+                    <h2 class="footer-titulo footer-titulo--marca mb-3">CuatroCancha FC</h2>
                     <p class="footer-texto mb-0">
                         La tienda deportiva de alta gama para los verdaderos apasionados del fútbol. Calidad, diseño y
                         estilo en cada prenda.
@@ -390,23 +348,30 @@
 
 
                 <div class="col-lg-4 col-md-6 text-md-center">
-                    <h6 class="footer-titulo mb-3">Navegación</h6>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-2"><a href="#inicio" class="footer-enlace">Inicio</a></li>
-                        <li class="mb-2"><a href="#" class="footer-enlace">Catálogo</a></li>
-                        <li class="mb-2"><a href="#" class="footer-enlace">Preguntas frecuentes</a></li>
-                    </ul>
+                    <h3 class="footer-titulo mb-3">Navegación</h3>
+                    <nav aria-label="Navegación del pie de página">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="#inicio" class="footer-enlace">Inicio</a></li>
+                            <li class="mb-2"><a href="#catalogo" class="footer-enlace">Catálogo</a></li>
+                            <li class="mb-2"><a href="#mas-vendidos" class="footer-enlace">Más vendidos</a></li>
+                            <li class="mb-2"><a href="#faq" class="footer-enlace">Preguntas frecuentes</a></li>
+                        </ul>
+                    </nav>
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    <h6 class="footer-titulo mb-3">Contacto</h6>
-                    <p class="footer-texto mb-2"><i class="fa-solid fa-location-dot me-2"></i> Bogotá, Colombia</p>
-                    <p class="footer-texto mb-2"><i class="fa-solid fa-envelope me-2"></i> info@cuatrocanchafc.com</p>
+                    <h3 class="footer-titulo mb-3">Contacto</h3>
+                    <address class="mb-0">
+                        <p class="footer-texto mb-2"><i class="bi bi-geo-alt-fill me-2" aria-hidden="true"></i> Bogotá, Colombia</p>
+                        <p class="footer-texto mb-2"><i class="bi bi-envelope-fill me-2" aria-hidden="true"></i>
+                            <a href="mailto:info@cuatrocanchafc.com" class="footer-enlace">info@cuatrocanchafc.com</a></p>
+                    </address>
+                    <!-- Redes sociales: aria-label porque el ícono solo no se lee en pantalla -->
                     <div class="d-flex gap-3 mt-3">
-                        <a href="#" class="footer-icono"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="footer-icono"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" class="footer-icono"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="#" class="footer-icono"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="footer-icono" aria-label="Instagram de CuatroCancha FC"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+                        <a href="#" class="footer-icono" aria-label="Facebook de CuatroCancha FC"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+                        <a href="#" class="footer-icono" aria-label="TikTok de CuatroCancha FC"><i class="bi bi-tiktok" aria-hidden="true"></i></a>
+                        <a href="#" class="footer-icono" aria-label="WhatsApp de CuatroCancha FC"><i class="bi bi-whatsapp" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
