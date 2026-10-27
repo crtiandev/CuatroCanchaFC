@@ -198,3 +198,79 @@
     aplicar();
     actualizarContador();
 })();
+
+/* lo mas vendido */
+
+(() => {
+    "use strict";
+
+    const contenedorMasVendidos = document.getElementById("mas-vendidos-lista");
+    if (!contenedorMasVendidos) return;
+
+    function obtenerProductosBase() {
+        const tarjetasCatalogo = document.querySelectorAll("[data-producto]");
+        const productos = [];
+
+        tarjetasCatalogo.forEach((tarjeta) => {
+            productos.push({
+                id: Number(tarjeta.dataset.id),
+                nombre: tarjeta.dataset.nombre,
+                precio: Number(tarjeta.dataset.precio),
+                imagen: tarjeta.querySelector("img") ? tarjeta.querySelector("img").getAttribute("src") : "",
+                ventas: Number(localStorage.getItem(`ventas_prod_${tarjeta.dataset.id}`)) || 0
+            });
+        });
+
+        return productos;
+    }
+
+    function renderizarMasVendidos() {
+        const productos = obtenerProductosBase();
+        productos.sort((a, b) => b.ventas - a.ventas);
+
+        const topMasVendidos = productos.slice(0, 4);
+
+        contenedorMasVendidos.innerHTML = "";
+
+        topMasVendidos.forEach((prod, index) => {
+            const itemHTML = `
+                <div class="d-flex align-items-center justify-content-between p-3 bg-surface border border-secondary rounded" style="background-color: var(--bg-surface, #0E1210);">
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="text-warning fw-bold fs-4">#${index + 1}</span>
+                        <div>
+                            <h4 class="text-light fs-6 mb-1">${prod.nombre}</h4>
+                            <p class="text-secondary small mb-0">$ ${prod.precio.toLocaleString("es-CO")} <span class="badge bg-dark text-warning ms-2">Comprado: ${prod.ventas} veces</span></p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-neon-action px-3 py-2" data-agregar-top="${prod.id}">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                </div>
+            `;
+            contenedorMasVendidos.insertAdjacentHTML("beforeend", itemHTML);
+        });
+    }
+    document.addEventListener("carrito:actualizado", (evento) => {
+        const carrito = evento.detail.carrito;
+        
+        carrito.forEach((item) => {
+            let ventasActuales = Number(localStorage.getItem(`ventas_prod_${item.id}`)) || 0;
+            localStorage.setItem(`ventas_prod_${item.id}`, item.cantidad);
+        });
+
+        renderizarMasVendidos();
+    });
+
+    contenedorMasVendidos.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-agregar-top]");
+        if (!btn) return;
+        const idProd = btn.dataset.agregarTop;
+        
+        const tarjetaOriginal = document.querySelector(`[data-producto][data-id="${idProd}"]`);
+        if (tarjetaOriginal) {
+            const botonCatalogo = tarjetaOriginal.querySelector("[data-agregar]");
+            if (botonCatalogo) botonCatalogo.click();
+        }
+    });
+    renderizarMasVendidos();
+})();
