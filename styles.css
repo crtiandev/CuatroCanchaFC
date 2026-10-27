@@ -375,82 +375,325 @@ body {
     color: var(--text-dark);
 }
 
-/*Estilos de la nabvar*/
+/* ==========================================================
+   Sobre nosotros y Preguntas frecuentes (Valentina)
 
-.logo {
-    height: 60px;
-    width: auto;
-}
-.navbar {
-    background-color: var(--bg-carbon);
-    border-bottom: 1px solid var(--gold-classic);
-}
-.navbar:hover {
-    color: var(--green-neon);
-}
+/* ---------- 1. Colores (variables) ---------- */
+:root {
+    --nos-fondo: #070908;
+    --nos-tarjeta: #0e1311;
+    --nos-borde: #212323;
+    --nos-crema: #f5f1df;
+    --nos-dorado: #f5d17b;
+    --nos-oro: #d3af36;
+    --nos-oro-suave: rgba(211, 175, 54, 0.14);
+    --nos-verde: #2cff69;
+    --nos-verde-suave: rgba(44, 255, 105, 0.25);
+    --nos-texto-suave: rgba(245, 241, 223, 0.78);
 
-.navbar .navbar-nav .nav-link {
-    color: var(--gold-light);
-}
-.navbar .navbar-nav .nav-link:hover {
-    color: var(--green-neon);
-}
-.carrito{
-    color: var(--gold-light);
-}
-.carrito:hover {
-    color: var(--green-neon);
-}
-
-.navbar-toggler-icon {
-    filter: invert(1);
-}
-.navbar-toggler {
-   color: #F1D27A;
+    /* Tamaños de letra: (mínimo en celular, crecimiento, máximo en pantalla grande) */
+    --nos-fs-base:     clamp(1rem,    0.95rem + 0.25vw, 1.15rem);
+    --nos-fs-intro:    clamp(1rem,    0.95rem + 0.3vw,  1.2rem);
+    --nos-fs-titulo:   clamp(2.2rem,  1.7rem  + 3vw,    3.6rem);
+    --nos-fs-subtit:   clamp(1.4rem,  1.2rem  + 1vw,    1.9rem);
+    --nos-fs-nombre:   clamp(1.05rem, 1rem    + 0.3vw,  1.25rem);
+    --nos-fs-rol:      clamp(0.85rem, 0.8rem  + 0.2vw,  1rem);
+    --nos-fs-pregunta: clamp(1.05rem, 1rem    + 0.4vw,  1.3rem);
 }
 
-/* Estilos Footer */
 
-.footer-tienda {
-    background-color: #F1D27A; /* O usa tu variable de fondo oscuro, ej: var(--bg-carbon) */
-    color: var(--gold-dark);
-    border-top: 1px solid var(--gold-classic);
+/* ---------- 2. Fondo y letra de las dos secciones ---------- */
+.seccion-nosotros,
+.seccion-faq {
+    background-color: var(--nos-fondo);
+    color: var(--nos-crema);
+    font-family: 'Inter', sans-serif;
+    font-size: var(--nos-fs-base);
+    line-height: 1.7;
+    scroll-margin-top: 80px;
+    overflow-x: clip;
 }
 
-.footer-titulo {
-    color: var(--gold-dark);
-    font-weight: bold;
+.seccion-nosotros {
+    background-image: radial-gradient(ellipse at 10% 0%, rgba(211, 175, 54, 0.08), transparent 55%);
 }
 
-.footer-texto {
-    color: var(--gold-dark);
-    opacity: 0.85;
-    font-size: 0.9rem;
+.seccion-faq {
+    background-image: radial-gradient(ellipse at 90% 100%, rgba(44, 255, 105, 0.06), transparent 55%);
+    border-top: 1px solid var(--nos-borde);
 }
 
-.footer-enlace {
-    color: var(--gold-dark);
-    text-decoration: none;
-    opacity: 0.85;
-    transition: opacity 0.3s ease;
+
+/* ---------- 3. Títulos y textos ---------- */
+.titulo-seccion {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: var(--nos-fs-titulo);
+    line-height: 1.1;
+    color: var(--nos-crema);
+    margin: 0;
+    overflow-wrap: anywhere; /* evita que una palabra larga se salga en celular */
 }
 
-.footer-enlace:hover {
-    opacity: 1;
-    text-decoration: underline;
+.titulo-seccion::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin-top: 16px;
+    background: linear-gradient(90deg, var(--nos-oro), var(--nos-verde));
 }
 
-.footer-icono {
-    color: var(--gold-dark);
-    font-size: 1.25rem;
-    transition: transform 0.3s ease;
+.texto-intro {
+    font-size: var(--nos-fs-intro);
+    color: var(--nos-texto-suave);
+    margin-bottom: 0;
 }
 
-.footer-icono:hover {
-    transform: translateY(-3px);
+.subtitulo-nosotros {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: var(--nos-fs-subtit);
+    line-height: 1.2;
+    color: var(--nos-dorado);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.footer-divisor {
-    border-color: var(--gold-classic) ;
-    opacity: 0.3;
+.tarjeta-nosotros .subtitulo-nosotros:first-child,
+.titulo-equipo {
+    margin-top: 0;
+}
+
+.titulo-equipo {
+    margin-bottom: 1rem;
+}
+
+.tarjeta-nosotros .subtitulo-nosotros:not(:first-child) {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--nos-borde);
+}
+
+
+/* ---------- 4. Estilo compartido de todas las tarjetas ---------- */
+.tarjeta-nosotros,
+.tarjeta-integrante,
+.pregunta-faq {
+    background-color: var(--nos-tarjeta);
+    border: 1px solid var(--nos-borde);
+    border-top: 2px solid var(--nos-oro);
+    border-radius: 2px;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.tarjeta-nosotros p {
+    font-size: inherit;   /* hereda el tamaño grande de la sección */
+    color: var(--nos-texto-suave);
+    margin-bottom: 0;
+}
+
+.tarjeta-nosotros {
+    background-image: linear-gradient(160deg, var(--nos-oro-suave), transparent 40%);
+}
+
+.tarjeta-integrante {
+    height: 100%;
+    background-image: linear-gradient(180deg, var(--nos-oro-suave), transparent 55%);
+}
+
+@media (hover: hover) {
+    .tarjeta-nosotros:hover,
+    .tarjeta-integrante:hover {
+        transform: translateY(-5px);
+        border-color: var(--nos-oro);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .tarjeta-integrante:hover .avatar-integrante {
+        border-color: var(--nos-verde);
+        box-shadow: 0 0 0 6px var(--nos-verde-suave);
+    }
+
+    .pregunta-faq:hover {
+        border-color: var(--nos-oro);
+    }
+
+    .pregunta-faq summary:hover {
+        color: var(--nos-dorado);
+    }
+}
+
+
+/* ---------- 5. Contenido de las tarjetas del equipo ---------- */
+.avatar-integrante {
+    width: clamp(72px, 60px + 2vw, 92px);   /* crece con la pantalla */
+    height: clamp(72px, 60px + 2vw, 92px);
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    border: 2px solid var(--nos-oro);
+    background: radial-gradient(circle, rgba(211, 175, 54, 0.25), #0a0e0c 75%);
+    box-shadow: 0 0 0 6px var(--nos-oro-suave);
+    color: var(--nos-dorado);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 1.4rem + 0.8vw, 2.1rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;     /* para que la foto se ubique dentro del círculo */
+    overflow: hidden;       /* recorta la foto en forma de círculo */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Foto de GitHub: llena el círculo sin deformarse.
+   Las iniciales quedan detrás y solo se ven si la foto no carga. */
+.avatar-integrante img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;  /* centra la cara, un poco hacia arriba */
+    transform: scale(1.15);       /* acerca la foto; si corta mucho, usa 1.05 */
+    border-radius: 50%;
+    display: block;
+}
+
+.nombre-integrante {
+    font-size: var(--nos-fs-nombre);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--nos-crema);
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+.rol-integrante {
+    display: inline-block;
+    padding: 2px 12px;
+    border: 1px solid rgba(211, 175, 54, 0.45);
+    border-radius: 2px;
+    font-size: var(--nos-fs-rol);
+    line-height: 1.4;
+    color: var(--nos-oro);
+}
+
+
+/* ---------- 6. Preguntas frecuentes (details / summary) ---------- */
+.acordeon-faq {
+    max-width: 900px;
+}
+
+.pregunta-faq {
+    padding: 18px 24px;
+    margin-bottom: 12px;
+}
+
+.pregunta-faq[open] {
+    border-color: var(--nos-oro);
+    box-shadow: inset 3px 0 0 var(--nos-oro);
+}
+
+.pregunta-faq summary {
+    font-size: var(--nos-fs-pregunta);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--nos-crema);
+    cursor: pointer;
+    min-height: 44px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: color 0.3s;
+}
+
+.pregunta-faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.pregunta-faq summary::after {
+    content: "+";
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--nos-borde);
+    border-radius: 2px;
+    color: var(--nos-oro);
+    font-size: 1.4rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.pregunta-faq[open] summary::after {
+    transform: rotate(45deg);
+    background-color: var(--nos-oro);
+    border-color: var(--nos-oro);
+    color: var(--nos-fondo);
+}
+
+.pregunta-faq p {
+    max-width: 70ch;
+    margin: 14px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--nos-borde);
+    font-size: inherit;
+    color: var(--nos-texto-suave);
+    animation: nos-aparecer 0.4s ease;
+}
+
+@keyframes nos-aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pregunta-faq summary:focus-visible {
+    outline: 3px solid var(--nos-verde);
+    outline-offset: 4px;
+}
+
+
+/* ---------- 7. Ajustes por tamaño de pantalla ----------
+   La letra ya se adapta sola con clamp(); aquí solo se ajustan
+   espacios, no tamaños de letra. */
+
+@media (max-width: 991px) {
+    .tarjeta-nosotros {
+        height: auto !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .pregunta-faq {
+        padding: 14px 16px;
+    }
+
+    .pregunta-faq summary::after {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tarjeta-nosotros,
+    .tarjeta-integrante,
+    .pregunta-faq,
+    .pregunta-faq summary,
+    .pregunta-faq summary::after,
+    .avatar-integrante,
+    .pregunta-faq p {
+        transition: none;
+        animation: none;
+    }
 }
