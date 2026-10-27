@@ -20,6 +20,7 @@ body {
     background-color: var(--bg-carbon);
     color: var(--text-main);
     font-family: var(--font-interface);
+    padding-top: 80px;
 }
 
 /* ==========================================================
