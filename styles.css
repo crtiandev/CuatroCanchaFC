@@ -1,0 +1,23 @@
+/* VARIABLES Y CONFIGURACIoN */
+:root {
+    --bg-carbon: #070908;
+    --bg-surface: #0E1210;
+    --gold-classic: #D4AF37;
+    --green-neon: #2BFF6A;
+    --text-main: #F5F0E0;
+    --gold-light: #F1D27A;
+    --text-secondary: #C7C2B3;
+    --text-dark: #050706;
+    --green-dark: #082010;
+    --gold-dark: #9C7D22;
+    --color-white: #FFFFFF;
+
+    --font-title: 'Playfair Display', 'DM Serif Display', serif;
+    --font-interface: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-carbon);
+    color: var(--text-main);
+    font-family: var(--font-interface);
+}
