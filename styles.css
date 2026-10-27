@@ -826,3 +826,114 @@ section[id] {
 .footer-tienda .footer-icono:focus-visible {
     outline-color: var(--text-dark);
 }
+
+/* lo mas vendido  */
+
+.tarjeta-destacada-banner, 
+#mas-vendidos .bg-carbon {
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tarjeta-destacada-banner {
+    background-image: linear-gradient(rgba(7, 9, 8, 0.85), rgba(7, 9, 8, 0.85)), url('imgs/mas\ vendido.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--gold-classic, #D4AF37);
+}
+
+.tarjeta-destacada-banner h2 {
+    color: var(--text-main, #F5F0E0) !important;
+}
+
+.tarjeta-destacada-banner p {
+    color: var(--text-secondary, #C7C2B3) !important;
+}
+
+.tarjeta-destacada-banner .btn-neon-action,
+.tarjeta-destacada-banner a.btn {
+    background-color: #22cc55 !important;
+    color: var(--text-dark, #050706) !important;
+    font-weight: 700;
+    border: none;
+    border-radius: 0px;
+    padding: 12px 28px;
+    transition: 200ms ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.tarjeta-destacada-banner a.btn:hover {
+    background-color: #1eb34a !important;
+    color: var(--text-dark, #050706) !important;
+}
+
+#mas-vendidos-lista .btn,
+#mas-vendidos-lista [data-agregar-top] {
+    background-color: #22cc55 !important;
+    color: var(--text-dark, #050706) !important;
+    font-weight: 700;
+    border: none !important;
+    border-radius: 0px !important;
+    padding: 8px 16px;
+    transition: 200ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mas-vendidos-lista .btn:hover,
+#mas-vendidos-lista [data-agregar-top]:hover {
+    background-color: #1eb34a !important;
+    color: var(--text-dark, #050706) !important;
+}
+
+
+/* carousel banner */
+.banner-carousel .carousel-item {
+    height: 80vh;
+    min-height: 500px;
+    background-color: var(--bg-carbon);
+}
+
+.banner-carousel .carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    opacity: 0.5;
+}
+
+.banner-content {
+    padding: 4rem 2rem;
+}
+
+.banner-carousel .carousel-caption p.banner-text,
+.banner-carousel .carousel-caption .banner-text {
+    color: var(--text-secondary, #C7C2B3) !important;
+    font-size: 1.15rem;
+}
+
+.banner-title {
+    font-family: var(--font-title);
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+.banner-title span {
+    color: var(--gold-light);
+}
+
+.btn-oferts {
+    background-color: var(--green-neon);
+    color: var(--text-dark);
+    font-weight: 700;
+    border-radius: 0px;
+    padding: 12px 28px;
+    transition: 200ms ease;
+}
+
+.btn-oferts:hover {
+    background-color: #22cc55;
+    color: var(--text-dark);
+}

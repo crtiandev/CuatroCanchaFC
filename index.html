@@ -168,13 +168,37 @@
 
         <!-- mas vendidos -->
         <!-- script.js llena esta sección con los 4 productos de mayor "ventas" del array PRODUCTOS -->
-        <section id="mas-vendidos" class="seccion" aria-labelledby="masvendidos-titulo">
+        <!-- mas vendidos -->
+        <section id="mas-vendidos" class="mas-vendidos py-5" aria-labelledby="mas-vendidos-titulo">
             <div class="container">
-                <div class="catalogo__encabezado">
-                    <h2 id="masvendidos-titulo" class="catalogo__titulo">Más vendidos</h2>
-                    <p class="catalogo__subtitulo">Lo que más se llevan los hinchas de CuatroCancha FC.</p>
+                <div class="row align-items-center gx-5">
+                    
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="tarjeta-destacada-banner position-relative overflow-hidden p-5 rounded h-100">
+                            <div class="banner-contenido-interno position-relative z-1">
+                                <h2 id="mas-vendidos-titulo" class="display-5 fw-bold mt-2 text-light" style="font-family: var(--font-title);">Los favoritos de la cancha</h2>
+                                <p class="lead mb-4 text-secondary">Descubre la indumentaria que todos los jugadores eligen para romperla en cada partido.</p>
+                                <a href="#catalogo" class="btn btn-neon-action">Ver todo el catálogo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="bg-carbon p-4 rounded border border-secondary h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-3">
+                                    <h3 class="text-warning fs-5 m-0 text-uppercase tracking-wider">Top Más Vendidos</h3>
+                                    <span class="text-secondary small">Actualización en tiempo real</span>
+                                </div>
+                            </div>
+
+                            <div id="mas-vendidos-lista" class="d-flex flex-column gap-3">
+                                <!-- esto se llena solito con el js -->
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div id="masvendidos-grid" class="row g-4"></div>
             </div>
         </section>
 
