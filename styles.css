@@ -22,6 +22,310 @@ body {
     font-family: var(--font-interface);
 }
 
+/* ==========================================================
+   CATALOGO
+   Todas las clases empiezan por .catalogo, .filtro, .producto
+   o .btn-catalogo para no chocar con el trabajo del equipo.
+   ========================================================== */
+
+.catalogo {
+    --catalogo-borde: rgba(245, 240, 224, 0.14);
+    padding: 4rem 0 5rem;
+}
+
+/* ---------- Encabezado ---------- */
+.catalogo__encabezado {
+    margin-bottom: 2rem;
+}
+
+.catalogo__titulo {
+    font-family: var(--font-title);
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+    color: var(--text-main);
+    margin: 0 0 0.5rem;
+}
+
+.catalogo__subtitulo {
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 60ch;
+}
+
+/* ---------- Controles ---------- */
+.catalogo__controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--catalogo-borde);
+}
+
+.catalogo__busqueda {
+    position: relative;
+    flex: 1 1 240px;
+    max-width: 340px;
+}
+
+.catalogo__busqueda .bi {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.catalogo__input,
+.catalogo__select {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: 1px solid var(--catalogo-borde);
+    border-radius: 0;
+    font-family: var(--font-interface);
+    font-size: 0.95rem;
+    height: 44px;
+}
+
+.catalogo__input {
+    width: 100%;
+    padding: 0 0.9rem 0 2.5rem;
+}
+
+.catalogo__input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+.catalogo__select {
+    padding: 0 2rem 0 0.9rem;
+    cursor: pointer;
+}
+
+.catalogo__select option {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+}
+
+.catalogo__input:hover,
+.catalogo__select:hover {
+    border-color: var(--gold-dark);
+}
+
+.catalogo__input:focus,
+.catalogo__select:focus {
+    outline: none;
+    border-color: var(--gold-classic);
+}
+
+/* Filtros por categoría */
+.catalogo__filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filtro {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--catalogo-borde);
+    font-family: var(--font-interface);
+    font-size: 0.9rem;
+    font-weight: 500;
+    height: 44px;
+    padding: 0 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.filtro:hover {
+    color: var(--text-main);
+    border-color: var(--gold-dark);
+}
+
+.filtro.is-active {
+    background-color: var(--gold-classic);
+    border-color: var(--gold-classic);
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+/* Orden */
+.catalogo__orden {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-left: auto;
+}
+
+.catalogo__orden label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Contador de resultados */
+.catalogo__resultados {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 1.25rem 0 1.25rem;
+}
+
+/* ---------- Tarjeta de producto ---------- */
+.producto {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--catalogo-borde);
+    border-top: 2px solid var(--gold-classic);
+    padding: 1rem;
+    transition: border-color 0.2s;
+}
+
+.producto:hover {
+    border-color: var(--gold-dark);
+    border-top-color: var(--gold-classic);
+}
+
+.producto__media {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.22), var(--bg-carbon) 75%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.producto__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.producto__icono {
+    font-size: 2.75rem;
+    color: var(--gold-dark);
+}
+
+.producto__categoria {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin: 0 0 0.25rem;
+}
+
+.producto__nombre {
+    font-family: var(--font-interface);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-main);
+    margin: 0 0 0.6rem;
+}
+
+.producto__precios {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.6rem;
+    margin-top: auto;
+    margin-bottom: 1rem;
+}
+
+.producto__precio {
+    color: var(--gold-classic);
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+/* ---------- Botones del catálogo ---------- */
+.btn-catalogo {
+    width: 100%;
+    height: 44px;
+    border: 1px solid var(--green-neon);
+    background-color: var(--green-neon);
+    color: var(--text-dark);
+    font-family: var(--font-interface);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-catalogo:hover {
+    background-color: var(--text-main);
+    border-color: var(--text-main);
+}
+
+.btn-catalogo.is-agregado {
+    background-color: transparent;
+    color: var(--green-neon);
+}
+
+.btn-catalogo--borde {
+    width: auto;
+    padding: 0 1.5rem;
+    background-color: transparent;
+    color: var(--gold-classic);
+    border-color: var(--gold-classic);
+}
+
+.btn-catalogo--borde:hover {
+    background-color: var(--gold-classic);
+    border-color: var(--gold-classic);
+    color: var(--text-dark);
+}
+
+/* ---------- Estado vacío ---------- */
+.catalogo__vacio {
+    text-align: center;
+    padding: 3rem 1rem;
+    border: 1px dashed var(--catalogo-borde);
+    color: var(--text-secondary);
+}
+
+.catalogo__vacio[hidden] {
+    display: none;
+}
+
+/* ---------- Foco visible (teclado) ---------- */
+.filtro:focus-visible,
+.btn-catalogo:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 2px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767.98px) {
+    .catalogo {
+        padding: 3rem 0 4rem;
+    }
+
+    .catalogo__busqueda {
+        max-width: none;
+    }
+
+    .catalogo__orden {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .catalogo__select {
+        flex: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .filtro,
+    .btn-catalogo,
+    .producto {
+        transition: none;
+    }
+}
 
 
 /* carousel banner */
@@ -57,7 +361,7 @@ body {
     color: var(--gold-light);
 }
 
-.btn-neon-action {
+.btn-oferts {
     background-color: var(--green-neon);
     color: var(--text-dark);
     font-weight: 700;
@@ -66,568 +370,13 @@ body {
     transition: 200ms ease;
 }
 
-.btn-neon-action:hover {
+.btn-oferts:hover {
     background-color: #22cc55;
     color: var(--text-dark);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ==========================================================
    Sobre nosotros y Preguntas frecuentes (Valentina)
-   Pegar al final de styles.css (reemplaza la versión anteriñor)
-   Mismo estilo del hero y del catálogo: fondo negro, títulos
-   crema y dorados, bordes finos y detalles en verde neón.
-   VERSIÓN CON LETRA NORMAL Y ADAPTABLE
-   La letra usa clamp(mínimo, ideal, máximo):
-   crece sola entre celular, tablet, computador y TV.
-   Las fotos se agregan con <img> dentro de .avatar-integrante.
-   ========================================================== */
-
 
 /* ---------- 1. Colores (variables) ---------- */
 :root {
