@@ -39,6 +39,7 @@ El desarrollo se realiza bajo una metodología colaborativa en equipo, aplicando
 - **[Trello del Equipo](https://trello.com/b/gFvceGvR/hackathon)** — Planificación, tablero Kanban y seguimiento de tareas.
 - **[OneDrive del Equipo](https://generationye-my.sharepoint.com/my?id=%2Fpersonal%2Fdavid%5Fvelez%5Fgenstudents%5Forg%2FDocuments%2FCuatroCancha%20FC&viewid=41c06ed3%2D1bde%2D435b%2Dad80%2D4f53e13e232b)** — Repositorio de documentación, recursos y archivos compartidos.
 - **[Figma de Diseño UI/UX](https://www.figma.com/design/qxXRIsqgYNPefM2SBbI3GU/Sin-t%C3%ADtulo?node-id=0-1&t=OSGBYG6lCNgREmfE-0)** — Wireframes y guía de estilos visuales.
+- **[Deploy](https://crtiandev.github.io/CuatroCanchaFC/)** 
 
 ---
 
