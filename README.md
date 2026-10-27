@@ -1,4 +1,4 @@
-# ⚽ CuatroCancha FC — Tienda Deportiva de Alta Gama
+# ⚽ CuatroCancha FC — Tienda Deportiva
 
 <div align="center">
 
@@ -11,15 +11,14 @@
 ---
 
 ## 📋 Descripción del Proyecto
-**CuatroCancha FC** es una plataforma e-commerce web diseñada exclusivamente para los verdaderos apasionados del fútbol. El proyecto ofrece una experiencia visual elegante y moderna (combinando tonos oscuros y detalles dorados), enfocándose en la venta de indumentaria y artículos deportivos de máxima calidad. 
+**CuatroCancha FC** es una plataforma e-commerce web de alta gama diseñada exclusivamente para los verdaderos apasionados del fútbol. El proyecto ofrece una experiencia visual elegante y moderna (combinando tonos oscuros y detalles dorados), enfocándose en la venta de indumentaria y artículos deportivos de máxima calidad. 
 
-El desarrollo se realiza bajo una metodología colaborativa en equipo, aplicando un diseño responsivo riguroso, arquitectura semántica y lógica interactiva impulsada por JavaScript moderno con persistencia de datos.
+El desarrollo se realiza bajo una metodología colaborativa en equipo, aplicando un diseño responsivo, arquitectura semántica y lógica interactiva impulsada por JavaScript con persistencia de datos.
 
 ---
 
 ## ✨ Características Principales
-* **Diseño Responsivo (Mobile-First):** Estructura adaptable a dispositivos móviles, tablets y escritorios utilizando **Bootstrap 5** combinada con clases y variables CSS personalizadas, además de una barra de navegación fija superior (`fixed-top`).
-* **Navegación Fluida:** Barra de navegación persistente y pie de página de tres columnas estructurado con información de marca, enlaces rápidos y canales de contacto.
+* **Diseño Responsivo:** Estructura adaptable a dispositivos móviles, tablets y escritorios utilizando **Bootstrap 5** combinada con clases y variables CSS personalizadas.
 * **Catálogo Dinámico:** Renderizado automático de productos a partir de un arreglo de objetos en JavaScript.
 * **Carrito de Compras Completo:** Funcionalidades para agregar, visualizar y eliminar productos seleccionados de manera interactiva.
 * **Persistencia con LocalStorage:** El carrito de compras almacena los datos en la memoria del navegador para evitar pérdidas de información al recargar la página.
@@ -30,13 +29,16 @@ El desarrollo se realiza bajo una metodología colaborativa en equipo, aplicando
 * **HTML5:** Estructura semántica del contenido.
 * **CSS3 & Variables Personalizadas:** Estilos visuales, transiciones y paleta de colores de la marca.
 * **Bootstrap 5:** Sistema de grillas y componentes responsivos.
-* **JavaScript (ES6+):** Lógica del catálogo, manipulación del DOM y gestión del carrito.
+* **JavaScript:** Lógica del catálogo, manipulación del DOM y gestión del carrito.
 * **Font Awesome:** Iconografía institucional y de redes sociales.
 * **Git & GitHub:** Control de versiones distribuido, flujos con ramas (`feature/*`) y resolución colaborativa de conflictos mediante Pull Requests.
 
 ---
 
-## ⚙️ Cómo Funciona (Instrucciones de Uso)
-1. **Clonar el repositorio:**
-   ```bash
-   git clone [https://github.com/crtiendev/CuatroCanchaFC.git](https://github.com/crtiendev/CuatroCanchaFC.git)
+## 🔗 Enlaces del Proyecto y Gestión
+* **[Trello del Equipo](https://trello.com/b/gFvceGvR/hackathon)** — Planificación, tablero Kanban y seguimiento de tareas.
+* **[OneDrive del Equipo](https://generationye-my.sharepoint.com/my?id=%2Fpersonal%2Fdavid%5Fvelez%5Fgenstudents%5Forg%2FDocuments%2FCuatroCancha%20FC&viewid=41c06ed3%2D1bde%2D435b%2Dad80%2D4f53e13e232b)** — Repositorio de documentación, recursos y archivos compartidos.
+* **[Figma de Diseño UI/UX](https://www.figma.com/design/qxXRIsqgYNPefM2SBbI3GU/Sin-t%C3%ADtulo?node-id=0-1&t=OSGBYG6lCNgREmfE-0)** — Wireframes y guía de estilos visuales.
+
+---
+
