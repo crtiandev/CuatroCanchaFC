@@ -26,6 +26,7 @@ body {
     background-color: var(--bg-carbon);
     color: var(--text-main);
     font-family: var(--font-interface);
+    padding-top: 80px;
 }
 
 /* Evita que la navbar fija tape el título de la sección al navegar con los enlaces */
