@@ -1,20 +1,58 @@
-/* ==========================================================
-   CATALOGO – CuatroCancha Fc
-   Los productos y sus imágenes se escriben en el HTML.
-   Este archivo solo se encarga de: buscar, filtrar por
-   categoría, ordenar y agregar al carrito.
-   ========================================================== */
 
 (() => {
     "use strict";
 
     const CLAVE_CARRITO = "cuatrocancha_carrito";
 
+    /* ---------- 0. DATOS: ARRAY DE PRODUCTOS ---------- */
+    // Cada producto es un objeto { id, categoria, nombre, precio, imagen, ventas }.
+    // "ventas" es un dato de ejemplo que se usa para armar la sección "Más vendidos".
+    // El orden del array es el orden de "Destacados".
+    const PRODUCTOS = [
+        // Producto 1
+        { id: 1, categoria: "camisetas", nombre: "Camiseta local 2026", precio: 189900, imagen: "imgs/clocal..jpg", ventas: 128 },
+        // Producto 2
+        { id: 2, categoria: "camisetas", nombre: "Camiseta visitante 2026", precio: 189900, imagen: "imgs/cvisitante.jpg", ventas: 96 },
+        // Producto 3
+        { id: 3, categoria: "camisetas", nombre: "Camiseta retro 1998", precio: 159900, imagen: "imgs/Camisetaretro1998.jpg", ventas: 74 },
+        // Producto 4
+        { id: 4, categoria: "camisetas", nombre: "Camiseta de arquero", precio: 174900, imagen: "imgs/carquero.jpg", ventas: 51 },
+        // Producto 5
+        { id: 5, categoria: "guayos", nombre: "Guayos Velocidad Pro", precio: 399900, imagen: "imgs/guayos1.jpg", ventas: 143 },
+        // Producto 6
+        { id: 6, categoria: "guayos", nombre: "Guayos Control Elite", precio: 429900, imagen: "imgs/guayosrojos.jpg", ventas: 88 },
+        // Producto 7
+        { id: 7, categoria: "guayos", nombre: "Guayos Césped Sintético", precio: 259900, imagen: "imgs/guayos4.jpg", ventas: 112 },
+        // Producto 8
+        { id: 8, categoria: "guayos", nombre: "Guayos Sala Indoor", precio: 219900, imagen: "imgs/grojos.jpg", ventas: 67 },
+        // Producto 9
+        { id: 9, categoria: "accesorios", nombre: "Balón oficial de partido", precio: 149900, imagen: "imgs/balon.jpg", ventas: 156 },
+        // Producto 10
+        { id: 10, categoria: "accesorios", nombre: "Guantes de arquero", precio: 89900, imagen: "imgs/guantes.jpg", ventas: 79 },
+        // Producto 11
+        { id: 11, categoria: "accesorios", nombre: "Espinilleras ligeras", precio: 49900, imagen: "imgs/canilleras.jpg", ventas: 134 },
+        // Producto 12
+        { id: 12, categoria: "accesorios", nombre: "Morral deportivo", precio: 119900, imagen: "imgs/maletin.jpg", ventas: 93 }
+    ];
+
+    // Texto bonito de cada categoría para mostrarlo en la tarjeta
+    const ETIQUETAS_CATEGORIA = {
+        camisetas: "Camisetas",
+        guayos: "Guayos",
+        accesorios: "Accesorios"
+    };
+
+    // Cuántos productos se muestran en "Más vendidos"
+    const CANTIDAD_MAS_VENDIDOS = 4;
+
+    // Si la persona pidió menos movimiento en su sistema, se evitan las esperas de animación
+    const prefiereMenosMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     /* ---------- 1. ELEMENTOS ---------- */
     const grid = document.getElementById("catalogo-grid");
     if (!grid) return; // Si la sección no existe, no hace nada
 
-    const tarjetas = Array.from(grid.querySelectorAll("[data-producto]"));
+    const gridMasVendidos = document.getElementById("masvendidos-grid");
     const inputBuscar = document.getElementById("catalogo-buscar");
     const selectOrden = document.getElementById("catalogo-orden");
     const filtros = document.querySelectorAll(".filtro");
@@ -22,10 +60,14 @@
     const bloqueVacio = document.getElementById("catalogo-vacio");
     const botonLimpiar = document.getElementById("catalogo-limpiar");
 
-    // Guarda la posición original para poder volver a "Destacados"
-    tarjetas.forEach((tarjeta, indice) => {
-        tarjeta.dataset.orden = indice;
-    });
+    // Elementos del panel del carrito
+    const listaCarrito = document.getElementById("carrito-lista");
+    const bloqueCarritoVacio = document.getElementById("carrito-vacio");
+    const pieCarrito = document.getElementById("carrito-pie");
+    const totalCarrito = document.getElementById("carrito-total");
+    const mensajeCarrito = document.getElementById("carrito-mensaje");
+    const botonVaciar = document.getElementById("carrito-vaciar");
+    const botonFinalizar = document.getElementById("carrito-finalizar");
 
     /* ---------- 2. ESTADO ---------- */
     const estado = {
@@ -39,7 +81,71 @@
     const normalizar = (texto) =>
         texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-    /* ---------- 4. FILTRAR Y ORDENAR ---------- */
+    // Convierte 189900 en "$ 189.900" (formato colombiano)
+    const formatearPrecio = (valor) => `$ ${Number(valor).toLocaleString("es-CO")}`;
+
+    // Evita que un texto guardado en localStorage se interprete como HTML
+    const escaparHTML = (texto) =>
+        String(texto)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+
+    /* ---------- 4. RENDER DINÁMICO DEL CATÁLOGO ---------- */
+    // Devuelve el HTML de una tarjeta a partir de un objeto del array PRODUCTOS.
+    // Mantiene los mismos data-* y clases que tenía el HTML escrito a mano.
+    function crearTarjetaProducto(producto, esMasVendido = false) {
+        const etiquetaVentas = esMasVendido
+            ? `<p class="producto__ventas"><i class="bi bi-fire" aria-hidden="true"></i> ${producto.ventas} vendidos</p>`
+            : "";
+
+        return `
+            <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="${producto.id}" data-categoria="${producto.categoria}" data-nombre="${escaparHTML(producto.nombre)}" data-precio="${producto.precio}">
+                <article class="producto">
+                    <div class="producto__media">
+                        <img src="${escaparHTML(producto.imagen)}" alt="${escaparHTML(producto.nombre)}" loading="lazy">
+                    </div>
+                    <p class="producto__categoria">${ETIQUETAS_CATEGORIA[producto.categoria]}</p>
+                    <h3 class="producto__nombre">${escaparHTML(producto.nombre)}</h3>
+                    ${etiquetaVentas}
+                    <div class="producto__precios">
+                        <span class="producto__precio">${formatearPrecio(producto.precio)}</span>
+                    </div>
+                    <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                </article>
+            </div>`;
+    }
+
+    // Dibuja los 12 productos del array dentro del catálogo
+    function renderizarCatalogo() {
+        grid.innerHTML = PRODUCTOS.map((producto) => crearTarjetaProducto(producto)).join("");
+    }
+
+    // Dibuja los productos con más ventas en la sección "Más vendidos"
+    function renderizarMasVendidos() {
+        if (!gridMasVendidos) return;
+        const masVendidos = [...PRODUCTOS]
+            .sort((a, b) => b.ventas - a.ventas)
+            .slice(0, CANTIDAD_MAS_VENDIDOS);
+        gridMasVendidos.innerHTML = masVendidos
+            .map((producto) => crearTarjetaProducto(producto, true))
+            .join("");
+    }
+
+    // Primero se dibuja el HTML y después se buscan las tarjetas
+    renderizarCatalogo();
+    renderizarMasVendidos();
+
+    const tarjetas = Array.from(grid.querySelectorAll("[data-producto]"));
+
+    // Guarda la posición original para poder volver a "Destacados"
+    tarjetas.forEach((tarjeta, indice) => {
+        tarjeta.dataset.orden = indice;
+    });
+
+    /* ---------- 5. FILTRAR Y ORDENAR ---------- */
     function aplicar() {
         const termino = normalizar(estado.busqueda.trim());
 
@@ -82,7 +188,7 @@
         });
     }
 
-    /* ---------- 5. IMÁGENES ---------- */
+    /* ---------- 6. IMÁGENES ---------- */
     // Si una imagen no carga (ruta mal escrita o archivo faltante),
     // se reemplaza por un ícono para que la tarjeta no quede rota.
     function imagenFallida(img) {
@@ -92,15 +198,24 @@
         img.replaceWith(icono);
     }
 
-    grid.querySelectorAll(".producto__media img").forEach((img) => {
-        img.addEventListener("error", () => imagenFallida(img), { once: true });
-        if (img.complete && img.naturalWidth === 0) imagenFallida(img);
-    });
+    // Aplica la regla anterior a todas las imágenes de un contenedor
+    // (se usa en el catálogo, en "Más vendidos" y en el carrito)
+    function vincularImagenesFallidas(contenedor) {
+        contenedor.querySelectorAll("img").forEach((img) => {
+            img.addEventListener("error", () => imagenFallida(img), { once: true });
+            if (img.complete && img.naturalWidth === 0) imagenFallida(img);
+        });
+    }
 
-    /* ---------- 6. CARRITO ---------- */
+    vincularImagenesFallidas(grid);
+    if (gridMasVendidos) vincularImagenesFallidas(gridMasVendidos);
+
+    /* ---------- 7. CARRITO ---------- */
     function leerCarrito() {
         try {
-            return JSON.parse(localStorage.getItem(CLAVE_CARRITO)) || [];
+            const guardado = JSON.parse(localStorage.getItem(CLAVE_CARRITO));
+            // Si lo guardado no es una lista (dato dañado), se empieza con un carrito vacío
+            return Array.isArray(guardado) ? guardado : [];
         } catch (error) {
             return [];
         }
@@ -114,12 +229,42 @@
         }
     }
 
+    // Suma las cantidades de todos los productos del carrito
+    function contarUnidades(carrito) {
+        return carrito.reduce((suma, item) => suma + item.cantidad, 0);
+    }
+
+    // Suma precio x cantidad de todos los productos del carrito
+    function calcularTotal(carrito) {
+        return carrito.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
+    }
+
     // Actualiza cualquier elemento del header que tenga data-carrito-contador
     function actualizarContador() {
-        const total = leerCarrito().reduce((suma, item) => suma + item.cantidad, 0);
+        const total = contarUnidades(leerCarrito());
         document.querySelectorAll("[data-carrito-contador]").forEach((el) => {
             el.textContent = total;
         });
+    }
+
+    // Pequeña animación (CSS) del contador cada vez que se agrega algo
+    function animarContador() {
+        if (prefiereMenosMovimiento) return;
+        document.querySelectorAll("[data-carrito-contador]").forEach((el) => {
+            el.classList.remove("is-bump");
+            void el.offsetWidth; // reinicia la animación si se agrega varias veces seguidas
+            el.classList.add("is-bump");
+        });
+    }
+
+    // Guarda, actualiza el contador y avisa a las demás secciones.
+    // Todas las acciones del carrito (agregar, eliminar, vaciar...) pasan por aquí.
+    function guardarYNotificar(carrito) {
+        guardarCarrito(carrito);
+        actualizarContador();
+
+        // Aviso para que otras secciones (carrito, más vendidos) puedan reaccionar
+        document.dispatchEvent(new CustomEvent("carrito:actualizado", { detail: { carrito } }));
     }
 
     function agregarAlCarrito(tarjeta) {
@@ -141,13 +286,125 @@
             });
         }
 
-        guardarCarrito(carrito);
-        actualizarContador();
-
-        // Aviso para que otras secciones (carrito, más vendidos) puedan reaccionar
-        document.dispatchEvent(new CustomEvent("carrito:actualizado", { detail: { carrito } }));
+        guardarYNotificar(carrito);
+        animarContador();
     }
 
+    // Elimina por completo un producto del carrito (con una pequeña animación de salida)
+    function eliminarDelCarrito(id) {
+        const quitar = () => guardarYNotificar(leerCarrito().filter((item) => item.id !== id));
+        const fila = listaCarrito.querySelector(`[data-item-id="${id}"]`);
+
+        if (fila && !prefiereMenosMovimiento) {
+            fila.classList.add("is-saliendo");
+            setTimeout(quitar, 250);
+        } else {
+            quitar();
+        }
+    }
+
+    // Suma o resta unidades; si llega a 0, el producto se elimina
+    function cambiarCantidad(id, diferencia) {
+        const carrito = leerCarrito();
+        const item = carrito.find((producto) => producto.id === id);
+        if (!item) return;
+
+        item.cantidad += diferencia;
+        if (item.cantidad <= 0) {
+            eliminarDelCarrito(id);
+            return;
+        }
+        guardarYNotificar(carrito);
+    }
+
+    function vaciarCarrito() {
+        guardarYNotificar([]);
+    }
+
+    // Simula la compra: vacía el carrito y muestra un mensaje de confirmación
+    function finalizarCompra() {
+        const carrito = leerCarrito();
+        if (carrito.length === 0) return;
+
+        const total = formatearPrecio(calcularTotal(carrito));
+        const unidades = contarUnidades(carrito);
+
+        vaciarCarrito();
+        mensajeCarrito.textContent =
+            `¡Gracias por tu compra! Registramos tu pedido de ${unidades} ` +
+            `${unidades === 1 ? "producto" : "productos"} por ${total}.`;
+        mensajeCarrito.hidden = false;
+    }
+
+    /* ---------- 8. VISTA DEL CARRITO ---------- */
+    // Devuelve el HTML de una fila del carrito (los textos se escapan por seguridad)
+    function crearItemCarrito(item) {
+        const nombre = escaparHTML(item.nombre);
+        return `
+            <li class="carrito-item" data-item-id="${item.id}">
+                <div class="carrito-item__media">
+                    <img src="${escaparHTML(item.imagen)}" alt="${nombre}">
+                </div>
+                <div class="carrito-item__info">
+                    <p class="carrito-item__nombre">${nombre}</p>
+                    <p class="carrito-item__precio">${formatearPrecio(item.precio)} c/u</p>
+                    <div class="carrito-item__cantidad" role="group" aria-label="Cantidad de ${nombre}">
+                        <button type="button" class="carrito-item__boton" data-accion="restar" data-id="${item.id}" aria-label="Quitar una unidad de ${nombre}"><i class="bi bi-dash-lg" aria-hidden="true"></i></button>
+                        <span class="carrito-item__unidades">${item.cantidad}</span>
+                        <button type="button" class="carrito-item__boton" data-accion="sumar" data-id="${item.id}" aria-label="Agregar una unidad de ${nombre}"><i class="bi bi-plus-lg" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="carrito-item__lado">
+                    <p class="carrito-item__subtotal">${formatearPrecio(item.precio * item.cantidad)}</p>
+                    <button type="button" class="carrito-item__eliminar" data-accion="eliminar" data-id="${item.id}" aria-label="Eliminar ${nombre} del carrito"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+                </div>
+            </li>`;
+    }
+
+    // Vuelve a dibujar el panel completo a partir de lo que hay en localStorage
+    function renderizarCarrito() {
+        const carrito = leerCarrito();
+        const estaVacio = carrito.length === 0;
+
+        listaCarrito.innerHTML = carrito.map(crearItemCarrito).join("");
+        vincularImagenesFallidas(listaCarrito);
+
+        bloqueCarritoVacio.hidden = !estaVacio;
+        pieCarrito.hidden = estaVacio;
+        totalCarrito.textContent = formatearPrecio(calcularTotal(carrito));
+
+        // El mensaje de "gracias" desaparece apenas se agrega un producto nuevo
+        if (!estaVacio) mensajeCarrito.hidden = true;
+    }
+
+    /* ---------- 9. NAVEGACIÓN ---------- */
+    // Marca en la navbar la sección que se está viendo (clase "active" + aria-current)
+    function resaltarSeccionActiva() {
+        const enlaces = document.querySelectorAll("[data-seccion]");
+        if (!("IntersectionObserver" in window)) return;
+
+        const observador = new IntersectionObserver((entradas) => {
+            entradas.forEach((entrada) => {
+                if (!entrada.isIntersecting) return;
+                enlaces.forEach((enlace) => {
+                    const activo = enlace.dataset.seccion === entrada.target.id;
+                    enlace.classList.toggle("active", activo);
+                    if (activo) {
+                        enlace.setAttribute("aria-current", "true");
+                    } else {
+                        enlace.removeAttribute("aria-current");
+                    }
+                });
+            });
+        }, { rootMargin: "-40% 0px -55% 0px" });
+
+        enlaces.forEach((enlace) => {
+            const seccion = document.getElementById(enlace.dataset.seccion);
+            if (seccion) observador.observe(seccion);
+        });
+    }
+
+    /* ---------- 10. EVENTOS ---------- */
     function confirmarEnBoton(boton) {
         boton.textContent = "Agregado";
         boton.classList.add("is-agregado");
@@ -157,7 +414,6 @@
         }, 1200);
     }
 
-    /* ---------- 7. EVENTOS ---------- */
     filtros.forEach((boton) => {
         boton.addEventListener("click", () => {
             estado.categoria = boton.dataset.categoria;
@@ -187,90 +443,49 @@
     });
 
     // Un solo listener para todos los botones "Agregar al carrito"
-    grid.addEventListener("click", (evento) => {
+    // (funciona tanto en el catálogo como en "Más vendidos")
+    document.addEventListener("click", (evento) => {
         const boton = evento.target.closest("[data-agregar]");
         if (!boton) return;
         agregarAlCarrito(boton.closest("[data-producto]"));
         confirmarEnBoton(boton);
     });
 
-    /* ---------- 8. INICIO ---------- */
-    aplicar();
-    actualizarContador();
-})();
+    // Un solo listener para los botones de cada fila del carrito: sumar, restar y eliminar
+    listaCarrito.addEventListener("click", (evento) => {
+        const boton = evento.target.closest("[data-accion]");
+        if (!boton) return;
 
-/* lo mas vendido */
-
-(() => {
-    "use strict";
-
-    const contenedorMasVendidos = document.getElementById("mas-vendidos-lista");
-    if (!contenedorMasVendidos) return;
-
-    function obtenerProductosBase() {
-        const tarjetasCatalogo = document.querySelectorAll("[data-producto]");
-        const productos = [];
-
-        tarjetasCatalogo.forEach((tarjeta) => {
-            productos.push({
-                id: Number(tarjeta.dataset.id),
-                nombre: tarjeta.dataset.nombre,
-                precio: Number(tarjeta.dataset.precio),
-                imagen: tarjeta.querySelector("img") ? tarjeta.querySelector("img").getAttribute("src") : "",
-                ventas: Number(localStorage.getItem(`ventas_prod_${tarjeta.dataset.id}`)) || 0
-            });
-        });
-
-        return productos;
-    }
-
-    function renderizarMasVendidos() {
-        const productos = obtenerProductosBase();
-        productos.sort((a, b) => b.ventas - a.ventas);
-
-        const topMasVendidos = productos.slice(0, 4);
-
-        contenedorMasVendidos.innerHTML = "";
-
-        topMasVendidos.forEach((prod, index) => {
-            const itemHTML = `
-                <div class="d-flex align-items-center justify-content-between p-3 bg-surface border border-secondary rounded" style="background-color: var(--bg-surface, #0E1210);">
-                    <div class="d-flex align-items-center gap-3">
-                        <span class="text-warning fw-bold fs-4">#${index + 1}</span>
-                        <div>
-                            <h4 class="text-light fs-6 mb-1">${prod.nombre}</h4>
-                            <p class="text-secondary small mb-0">$ ${prod.precio.toLocaleString("es-CO")} <span class="badge bg-dark text-warning ms-2">Comprado: ${prod.ventas} veces</span></p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-sm btn-neon-action px-3 py-2" data-agregar-top="${prod.id}">
-                        <i class="bi bi-plus-lg"></i>
-                    </button>
-                </div>
-            `;
-            contenedorMasVendidos.insertAdjacentHTML("beforeend", itemHTML);
-        });
-    }
-    document.addEventListener("carrito:actualizado", (evento) => {
-        const carrito = evento.detail.carrito;
-        
-        carrito.forEach((item) => {
-            let ventasActuales = Number(localStorage.getItem(`ventas_prod_${item.id}`)) || 0;
-            localStorage.setItem(`ventas_prod_${item.id}`, item.cantidad);
-        });
-
-        renderizarMasVendidos();
-    });
-
-    contenedorMasVendidos.addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-agregar-top]");
-        if (!btn) return;
-        const idProd = btn.dataset.agregarTop;
-        
-        const tarjetaOriginal = document.querySelector(`[data-producto][data-id="${idProd}"]`);
-        if (tarjetaOriginal) {
-            const botonCatalogo = tarjetaOriginal.querySelector("[data-agregar]");
-            if (botonCatalogo) botonCatalogo.click();
+        const id = Number(boton.dataset.id);
+        switch (boton.dataset.accion) {
+            case "sumar":
+                cambiarCantidad(id, 1);
+                break;
+            case "restar":
+                cambiarCantidad(id, -1);
+                break;
+            case "eliminar":
+                eliminarDelCarrito(id);
+                break;
         }
     });
-    renderizarMasVendidos();
+
+    botonVaciar.addEventListener("click", vaciarCarrito);
+    botonFinalizar.addEventListener("click", finalizarCompra);
+
+    // Cada vez que el carrito cambia, el panel se vuelve a dibujar
+    document.addEventListener("carrito:actualizado", renderizarCarrito);
+
+    // Si el carrito cambia en otra pestaña, esta pestaña se sincroniza
+    window.addEventListener("storage", (evento) => {
+        if (evento.key !== CLAVE_CARRITO) return;
+        actualizarContador();
+        renderizarCarrito();
+    });
+
+    /* ---------- 11. INICIO ---------- */
+    aplicar();
+    actualizarContador();
+    renderizarCarrito();
+    resaltarSeccionActiva();
 })();
