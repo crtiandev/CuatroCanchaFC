@@ -71,3 +71,82 @@ body {
     color: var(--text-dark);
 }
 
+/*Estilos de la nabvar*/
+
+.logo {
+    height: 60px;
+    width: auto;
+}
+.navbar {
+    background-color: var(--bg-carbon);
+    border-bottom: 1px solid var(--gold-classic);
+}
+.navbar:hover {
+    color: var(--green-neon);
+}
+
+.navbar .navbar-nav .nav-link {
+    color: var(--gold-light);
+}
+.navbar .navbar-nav .nav-link:hover {
+    color: var(--green-neon);
+}
+.carrito{
+    color: var(--gold-light);
+}
+.carrito:hover {
+    color: var(--green-neon);
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+.navbar-toggler {
+   color: #F1D27A;
+}
+
+/* Estilos Footer */
+
+.footer-tienda {
+    background-color: #F1D27A; /* O usa tu variable de fondo oscuro, ej: var(--bg-carbon) */
+    color: var(--gold-dark);
+    border-top: 1px solid var(--gold-classic);
+}
+
+.footer-titulo {
+    color: var(--gold-dark);
+    font-weight: bold;
+}
+
+.footer-texto {
+    color: var(--gold-dark);
+    opacity: 0.85;
+    font-size: 0.9rem;
+}
+
+.footer-enlace {
+    color: var(--gold-dark);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+.footer-enlace:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-icono {
+    color: var(--gold-dark);
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+.footer-icono:hover {
+    transform: translateY(-3px);
+}
+
+.footer-divisor {
+    border-color: var(--gold-classic) ;
+    opacity: 0.3;
+}
