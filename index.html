@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,8 +29,229 @@
         </section>
 
         <!-- catalogo -->
-        <section>
+        <section id="catalogo" class="catalogo" aria-labelledby="catalogo-titulo">
+            <div class="container">
 
+                <div class="catalogo__encabezado">
+                    <h2 id="catalogo-titulo" class="catalogo__titulo">Catálogo</h2>
+                    <p class="catalogo__subtitulo">Camisetas, guayos y accesorios para cada partido.</p>
+                </div>
+
+                <div class="catalogo__controles">
+                    <div class="catalogo__busqueda">
+                        <label for="catalogo-buscar" class="visually-hidden">Buscar producto</label>
+                        <i class="bi bi-search" aria-hidden="true"></i>
+                        <input type="search" id="catalogo-buscar" class="catalogo__input" placeholder="Buscar producto" autocomplete="off">
+                    </div>
+
+                    <div class="catalogo__filtros" role="group" aria-label="Filtrar por categoría">
+                        <button type="button" class="filtro is-active" data-categoria="todos" aria-pressed="true">Todos</button>
+                        <button type="button" class="filtro" data-categoria="camisetas" aria-pressed="false">Camisetas</button>
+                        <button type="button" class="filtro" data-categoria="guayos" aria-pressed="false">Guayos</button>
+                        <button type="button" class="filtro" data-categoria="accesorios" aria-pressed="false">Accesorios</button>
+                    </div>
+
+                    <div class="catalogo__orden">
+                        <label for="catalogo-orden">Ordenar por</label>
+                        <select id="catalogo-orden" class="catalogo__select">
+                            <option value="relevancia">Destacados</option>
+                            <option value="precio-asc">Precio: menor a mayor</option>
+                            <option value="precio-desc">Precio: mayor a menor</option>
+                            <option value="nombre">Nombre (A–Z)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <p id="catalogo-resultados" class="catalogo__resultados" aria-live="polite"></p>
+
+                <div id="catalogo-grid" class="row g-4">
+                    <!-- Producto 1 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="1" data-categoria="camisetas" data-nombre="Camiseta local 2026" data-precio="189900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/mayer.jpg" alt="Camiseta local 2026" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Camisetas</p>
+                            <h3 class="producto__nombre">Camiseta local 2026</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 189.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="2" data-categoria="camisetas" data-nombre="Camiseta visitante 2026" data-precio="189900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/camiseta-visitante-2026.jpg" alt="Camiseta visitante 2026" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Camisetas</p>
+                            <h3 class="producto__nombre">Camiseta visitante 2026</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 189.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="3" data-categoria="camisetas" data-nombre="Camiseta retro 1998" data-precio="159900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/camiseta-retro-1998.jpg" alt="Camiseta retro 1998" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Camisetas</p>
+                            <h3 class="producto__nombre">Camiseta retro 1998</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 159.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 4 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="4" data-categoria="camisetas" data-nombre="Camiseta de arquero" data-precio="174900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/camiseta-arquero.jpg" alt="Camiseta de arquero" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Camisetas</p>
+                            <h3 class="producto__nombre">Camiseta de arquero</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 174.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 5 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="5" data-categoria="guayos" data-nombre="Guayos Velocidad Pro" data-precio="399900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/guayos-velocidad-pro.jpg" alt="Guayos Velocidad Pro" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Guayos</p>
+                            <h3 class="producto__nombre">Guayos Velocidad Pro</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 399.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 6 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="6" data-categoria="guayos" data-nombre="Guayos Control Elite" data-precio="429900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/guayos-control-elite.jpg" alt="Guayos Control Elite" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Guayos</p>
+                            <h3 class="producto__nombre">Guayos Control Elite</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 429.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 7 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="7" data-categoria="guayos" data-nombre="Guayos Césped Sintético" data-precio="259900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/guayos-cesped-sintetico.jpg" alt="Guayos Césped Sintético" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Guayos</p>
+                            <h3 class="producto__nombre">Guayos Césped Sintético</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 259.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 8 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="8" data-categoria="guayos" data-nombre="Guayos Sala Indoor" data-precio="219900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/guayos-sala-indoor.jpg" alt="Guayos Sala Indoor" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Guayos</p>
+                            <h3 class="producto__nombre">Guayos Sala Indoor</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 219.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 9 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="9" data-categoria="accesorios" data-nombre="Balón oficial de partido" data-precio="149900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/balon-oficial.jpg" alt="Balón oficial de partido" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Accesorios</p>
+                            <h3 class="producto__nombre">Balón oficial de partido</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 149.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 10 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="10" data-categoria="accesorios" data-nombre="Guantes de arquero" data-precio="89900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/guantes-arquero.jpg" alt="Guantes de arquero" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Accesorios</p>
+                            <h3 class="producto__nombre">Guantes de arquero</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 89.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 11 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="11" data-categoria="accesorios" data-nombre="Espinilleras ligeras" data-precio="49900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/espinilleras.jpg" alt="Espinilleras ligeras" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Accesorios</p>
+                            <h3 class="producto__nombre">Espinilleras ligeras</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 49.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+
+                    <!-- Producto 12 -->
+                    <div class="col-12 col-sm-6 col-lg-3" data-producto data-id="12" data-categoria="accesorios" data-nombre="Morral deportivo" data-precio="119900">
+                        <article class="producto">
+                            <div class="producto__media">
+                                <img src="img/morral-deportivo.jpg" alt="Morral deportivo" loading="lazy">
+                            </div>
+                            <p class="producto__categoria">Accesorios</p>
+                            <h3 class="producto__nombre">Morral deportivo</h3>
+                            <div class="producto__precios">
+                                <span class="producto__precio">$ 119.900</span>
+                            </div>
+                            <button type="button" class="btn-catalogo" data-agregar>Agregar al carrito</button>
+                        </article>
+                    </div>
+                </div>
+
+                <div id="catalogo-vacio" class="catalogo__vacio" hidden>
+                    <p>No encontramos productos con esos filtros.</p>
+                    <button type="button" class="btn-catalogo btn-catalogo--borde" id="catalogo-limpiar">Quitar filtros</button>
+                </div>
+
+            </div>
         </section>
 
         <!-- mas vendidos -->
